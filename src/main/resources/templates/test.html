@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base :: common_header(~{::title},~{::link})">
+    <title>Firefight - Test</title>
+    <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}"/>
+</head>
+<body class="bg-light">
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<main role="main" class="container-fluid">
+
+    <input type="hidden" id="txtPreguntasPorTema" name="txtPreguntasPorTema" th:value="${test.numPreguntasPorTema}">
+
+
+</main>
+
+
+<script src="../static/js/test.js" th:src="@{/js/test.js}"></script>
+<script>
+    // <![CDATA[
+        jQuery(document).ready(function() {
+            var temas = $('#txtPreguntasPorTema').val();
+            Test.init(temas);
+
+        });
+    // ]]>
+</script>
+
+<div th:insert="~{fragments/footer :: copy}"></div>
+</body>
+</html>
