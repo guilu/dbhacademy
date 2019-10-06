@@ -39,6 +39,21 @@ Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (25,'T
 Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (26,'TM0026','Patología de la edificación',4);
 Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (27,'TM0027','Urgencias sanitarias',4);
 
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (28,'TM0028','Principios de la lucha contra incendios',5);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (29,'TM0029','Mercancias Peligrosas',5);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (30,'TM0030','Suministro de corriente eléctrica ',5);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (31,'TM0031','Suministro de agua potable y saneamiento',5);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (32,'TM0032','Suministro de gas ',5);
+
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (33,'TM0033','Equipos de protección respiratoria',6);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (34,'TM0034','Bombas e Hidráulica básica',6);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (35,'TM0035','Equipos de Protección Individual (EPI)',6);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (36,'TM0036','Equipamiento operativo',6);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (37,'TM0037','Vehículos contra incendios',6);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (38,'TM0038','Dotación y distribución del parque móvil',6);
+Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (39,'TM0039','Comunicaciones',6);
+
+
 
 
 Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,CODIGO,TEXTO,TEMA_ID) values (1,'PR0001','Sólo uno de los siguientes principios está garantizado constitucionalmente:',1);
