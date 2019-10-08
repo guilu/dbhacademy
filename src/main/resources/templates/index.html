@@ -16,16 +16,14 @@
         </div>
     </div>
 
-    <form id="formTemas" th:action="@{/test}" th:object="${test}" method="post">
+    <form id="formTemas" th:action="@{/test}" th:object="${temasSeleccionados}" method="post">
         <div class="px-2 rounded">
             <div class="d-flex align-content-center">
-                <div th:each="agrupacion : ${agrupaciones}" class="p-3 m-2 bg-white text-muted rounded shadow-sm"
-                     id="agrupacion1" th:id="${agrupacion.id}">
+                <div th:each="agrupacion,iter1 : ${agrupaciones}" class="p-3 m-2 bg-white text-muted rounded shadow-sm" id="agrupacion1" th:id="${'a_' + agrupacion.id}">
                     <div><h6 th:text="${agrupacion.texto}">AGRUPACION</h6></div>
                     <hr/>
-                    <div th:each="tema : ${agrupacion.temas}" class="form-check" th:id="${tema.id}">
-                        <input class="form-check-input" type="checkbox" value="" th:id="${ 'chk_' + tema.id}"
-                               id="chk_id1" th:field="*{temas}">
+                    <div th:each="tema,iter2 : ${agrupacion.temas}" class="form-check">
+                        <input class="form-check-input" type="checkbox" th:id="${ 'chk_' + tema.id}" id="chk_id1" th:field="*{temas[__${tema.id-1}__]}" th:value="${tema.id}"  th:checked="${isChecked}">
                         <label class="form-check-label small" th:for="${'chk_' + tema.id}" for="chk_id1">
                             <span th:text="${tema.texto}">Texto de tema 1</span>
                         </label>
