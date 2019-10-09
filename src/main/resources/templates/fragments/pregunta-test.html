@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pregunta-Test</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/css/fonts.css" th:href="@{/css/fonts.css}"/>
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/img/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="../../static/img/favicon/favicon.ico">
+    <link rel="stylesheet" href="../../static/css/app.css" th:href="@{/css/app.css}"/>
+    <!-- Common scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../../static/js/fontawesome-all.min.js" th:src="@{/js/fontawesome-all.min.js}"></script>
+
+
+</head>
+<body>
+
+<main role="main" class="container" th:fragment="pregunta">
+
+    <input type="hidden" id="numPreguntasTotales" th:value="${test?.getPreguntas()?.size()}"/>
+
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
+        <div class="mr-3 rounded text-white d-flex justify-content-center align-items-center w48h84 border-white" th:text="${test?.getPreguntaCurrent()?.getCodigo()}">9999</div>
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100" th:text="${test?.getPreguntaCurrent()?.getTexto()}">Texto de la Pregunta</h6>
+            <small>marca la respuesta verdadera</small>
+        </div>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Posibles respuestas</h6>
+
+        <div class="media text-muted pt-3" th:each="respuesta,iter : ${test?.getPreguntaCurrent()?.getRespuestas()}">
+            <div class="media-body pb-3 mb-0 small border-bottom border-gray">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" th:id="${'r_'+respuesta.id}">
+                    <label class="form-check-label" th:for="${'r_'+respuesta.id}" th:text="${respuesta.texto}">Texto de la respuesta 1:  pain itself, who seeks after it and wants to have it, simply because it is pain..."
+                        What is Lorem Ipsum? Lorem Ipsum is </label>
+                </div>
+            </div>
+        </div>
+
+        <small class="d-block mt-3">
+            <span class="row">
+                <span class="col-sm-6 d-flex align-items-center text-muted font-weight-bold" id="reloj">100</span>
+                <span class="col-sm-6 text-right ">
+                    <a class="mr-3" id="btnPistaOn" href="#">Dame una pista</a>
+                    <a class="btn btn-secondary" href="#" role="button">Corregir »</a>
+                </span>
+            </span>
+        </small>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded box-shadow" style="display: none" id="pista">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Pista</h6>
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 small lh-125 ">
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <strong class="text-gray-dark">De la bbdd sacaríamos un tip o algo para conocer la respuesta</strong>
+                    <a href="#" id="btnPistaOff">ocultar!</a>
+                </div>
+                <span class="d-block">más texto de la pista</span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="mdlError">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="txtError">Sorry, de los temas seleccionados no he podido obtener ninguna pregunta. Vuelve atrás y selecciona otros temas.</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="btnVolverAtras" th:href="@{/}">volver atrás</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script th:fragment="pregunta-js">
+    $('#btnPistaOn').on('click', function(){
+        $('#pista').show();
+    });
+    $('#btnPistaOff').on('click', function(){
+        $('#pista').hide();
+    });
+
+    var seconds = document.getElementById("reloj").textContent;
+    var countdown = setInterval(function() {
+        seconds--;
+        document.getElementById("reloj").textContent = seconds;
+        if (seconds <= 0) clearInterval(countdown);
+    }, 1000);
+
+    var numPreguntasTotales = $('#numPreguntasTotales').val();
+    if (numPreguntasTotales == 0) {
+        $('#mdlError').modal('show');
+    }
+
+
+</script>
+
+</body>
+</html>

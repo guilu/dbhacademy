@@ -2,12 +2,7 @@ package com.dbhacademy.firefight.model.entity;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import com.dbhacademy.firefight.model.BaseEntity;
@@ -30,7 +25,7 @@ public class Tema extends BaseEntity {
 	@Size(max = 255)
 	private String texto;
 	
-	@OneToMany(mappedBy = "tema")
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Pregunta> preguntas;
 
 	public Agrupacion getAgrupacion() {

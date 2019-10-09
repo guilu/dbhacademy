@@ -21,8 +21,10 @@ public class Respuesta extends BaseEntity {
     @Column(unique = true)
     private String codigo;
     @Size(max = 255)
+    @Column
     private String texto;
-    private boolean esCorrecta;
+    @Column
+    private boolean correcta;
 
     public Pregunta getPregunta() {
         return pregunta;
@@ -48,11 +50,12 @@ public class Respuesta extends BaseEntity {
         this.texto = texto;
     }
 
-    public boolean esCorrecta() {
-        return esCorrecta;
+    public boolean isCorrecta() {
+        return correcta;
     }
 
     public void setCorrecta(boolean correcta) {
-        esCorrecta = correcta;
+        this.correcta = correcta;
     }
+
 }

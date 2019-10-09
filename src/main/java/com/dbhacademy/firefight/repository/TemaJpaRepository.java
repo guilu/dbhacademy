@@ -13,7 +13,7 @@ public interface TemaJpaRepository extends PagingAndSortingRepository<Tema, Long
 	
 	@Override
 	List<Tema> findAll();
-	
+
 	List<Tema> findByAgrupacion(Agrupacion agrupacion);
 
 }

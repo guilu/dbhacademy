@@ -53,12 +53,16 @@ Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (37,'T
 Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (38,'TM0038','Dotación y distribución del parque móvil',6);
 Insert into BDD_FIREFIGHT.TB02_TEMA(ID,CODIGO,TEXTO,AGRUPACION_ID) values (39,'TM0039','Comunicaciones',6);
 
-
-
-
 Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,CODIGO,TEXTO,TEMA_ID) values (1,'PR0001','Sólo uno de los siguientes principios está garantizado constitucionalmente:',1);
 
-Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,ES_CORRECTA,PREGUNTA_ID) values (1,'RE0001','La interdicción de la arbitrariedad del poder judicial.',false,1);
-Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,ES_CORRECTA,PREGUNTA_ID) values (2,'RE0002','La responsabilidad e interdicción de la arbitrariedad de la Administración Pública, tanto nacional, como autonómica o local',false,1);
-Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,ES_CORRECTA,PREGUNTA_ID) values (3,'RE0003','La responsabilidad de la Administración Pública.',false,1);
-Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,ES_CORRECTA,PREGUNTA_ID) values (4,'RE0004','La responsabilidad e interdicción de la arbitrariedad de los poderes públicos.',true,1);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (1,'RE0001','La interdicción de la arbitrariedad del poder judicial.',FALSE,1);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (2,'RE0002','La responsabilidad e interdicción de la arbitrariedad de la Administración Pública, tanto nacional, como autonómica o local',FALSE,1);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (3,'RE0003','La responsabilidad de la Administración Pública.',FALSE,1);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (4,'RE0004','La responsabilidad e interdicción de la arbitrariedad de los poderes públicos.',TRUE,1);
+
+Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,CODIGO,TEXTO,TEMA_ID) values (2,'PR0002','Sólo uno de los siguientes principios está garantizado constitucionalmente:',1);
+
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (5,'RE0005','La interdicción de la arbitrariedad del poder judicial.',FALSE,2);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (6,'RE0006','La responsabilidad e interdicción de la arbitrariedad de la Administración Pública, tanto nacional, como autonómica o local',FALSE,2);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (7,'RE0007','La responsabilidad de la Administración Pública.',TRUE,2);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,CODIGO,TEXTO,CORRECTA,PREGUNTA_ID) values (8,'RE0008','La responsabilidad e interdicción de la arbitrariedad de los poderes públicos.',FALSE,2);

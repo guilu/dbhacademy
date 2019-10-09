@@ -9,8 +9,8 @@
 
 <main role="main" class="container-fluid">
 
-    <input type="hidden" id="txtPreguntasPorTema" name="txtPreguntasPorTema" th:value="${temasSeleccionados.numPreguntasPorTema}">
-	
+    <!-- el fragmento con la pregunta -->
+    <main role="main" th:replace="fragments/pregunta-test :: pregunta"></main>
 
 </main>
 
@@ -19,12 +19,13 @@
 <script>
     // <![CDATA[
         jQuery(document).ready(function() {
-            var temas = $('#txtPreguntasPorTema').val();
+            var temas = $('#numPreguntasPorTema').val();
             Test.init(temas);
 
         });
     // ]]>
 </script>
+<script th:replace="fragments/pregunta-test :: pregunta-js"></script>
 
 <div th:insert="~{fragments/footer :: copy}"></div>
 </body>

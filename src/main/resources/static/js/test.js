@@ -10,7 +10,7 @@ var Test = (function () {
 
         init: function (temas) {
 
-            alert("pues eso que empezamos.... me han llegado " + temas + " preguntas por tema");
+            console.log("pues eso que empezamos.... me han llegado " + temas + " preguntas por tema");
 
         }
     }
