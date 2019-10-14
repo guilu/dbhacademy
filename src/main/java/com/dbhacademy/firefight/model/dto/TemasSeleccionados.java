@@ -12,9 +12,8 @@ public class TemasSeleccionados {
 
     private static final Logger LOG = LoggerFactory.getLogger(TemasSeleccionados.class);
 
-
-    List<Tema> temas;
-    int numPreguntasPorTema;
+    private List<Tema> temas;
+    private int numPreguntasPorTema;
 
     public TemasSeleccionados() {
     }
@@ -44,7 +43,6 @@ public class TemasSeleccionados {
      * Deja la lista de temas solo con los no vacios
      * pues el bindindg del formulario con la lista de temas deja los que no se hayan seleccionado como null.
      *
-     * @return
      */
     public void setTemasNotNull() {
         List<Tema> noVacios = new ArrayList<>();
@@ -60,7 +58,6 @@ public class TemasSeleccionados {
     /**
      * Sobrecarga del toString
      *
-     * @return
      */
     public String toString() {
         StringBuffer txtTemas = new StringBuffer();

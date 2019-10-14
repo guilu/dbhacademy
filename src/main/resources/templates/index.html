@@ -98,14 +98,14 @@
         btn.on('click', function () {
             var numTemasSeleccionados = formTemas.find("input[type=checkbox]:checked").length;
 
-            if (numTemasSeleccionados == 0) {
+            if (numTemasSeleccionados === 0) {
                 var txtError = $('#txtError');
                 txtError.text('Tienes que seleccionar al menos 1 tema');
                 $('#mdlError').modal('show');
             } else {
 
                 var txtTest = $('#txtTest');
-                txtTest.text("Vamos a generar un test de " + numTemasSeleccionados + " Tema con " + cbnNumPreguntas.val() + " preguntas por tema");
+                txtTest.text("Vamos a generar un contadoresTest de " + numTemasSeleccionados + " Tema con " + cbnNumPreguntas.val() + " preguntas por tema");
                 $('#mdlTest').modal('show');
             }
         });

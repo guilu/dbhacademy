@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base :: common_header(~{::title},~{::link})">
+    <title>Firefight - Test</title>
+    <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}"/>
+</head>
+<body class="bg-light">
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<main role="main" class="container-fluid">
+
+    <!-- el fragmento con la pregunta -->
+    <main role="main" th:replace="fragments/pregunta-contadoresTest :: pregunta"></main>
+
+    <span id="reloj">60*numPreguntas</span>
+
+</main>
+
+
+<script src="../static/js/contadoresTest.js" th:src="@{/js/contadoresTest.js}"></script>
+<script>
+    // <![CDATA[
+    jQuery(document).ready(function() {
+
+        var seconds = document.getElementById("reloj").textContent;
+        var countdown = setInterval(function() {
+            seconds--;
+            document.getElementById("reloj").textContent = seconds;
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                console.log("corregir")
+            }
+        }, 1000);
+
+
+    });
+    // ]]>
+</script>
+<script th:replace="fragments/pregunta-contadoresTest :: pregunta-js"></script>
+
+<div th:insert="~{fragments/footer :: copy}"></div>
+</body>
+</html>

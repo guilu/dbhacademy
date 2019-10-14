@@ -1,10 +1,9 @@
 package com.dbhacademy.firefight.service;
 
+import com.dbhacademy.firefight.model.dto.ContadoresTest;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
-import com.dbhacademy.firefight.model.dto.Test;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Tema;
-import com.dbhacademy.firefight.repository.TemaJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,18 +20,19 @@ public class TestService {
         this.temaService = temaService;
     }
 
-    public Test generaTest(TemasSeleccionados temasSeleccionados){
-        Test test = new Test();
+    public List<Pregunta> generaPreguntas(TemasSeleccionados temasSeleccionados){
         List<Pregunta> flattenPreguntas = new ArrayList<>();
         List<Tema> temas = this.temaService.scramble(temasSeleccionados.getTemas());
         for(Tema tema : temas){
             flattenPreguntas.addAll(tema.getPreguntas());
         }
-        test.setPreguntas(flattenPreguntas);
-        test.setAciertos(0);
-        test.setErrores(0);
-        test.setCurrent(0);
+        return flattenPreguntas;
+    }
 
-        return test;
+    public ContadoresTest pasaPregunta(ContadoresTest contadoresTest){
+        contadoresTest.setCurrent(contadoresTest.getCurrent()+1);
+        contadoresTest.setAciertos(contadoresTest.getAciertos());
+        contadoresTest.setErrores(contadoresTest.getErrores());
+        return contadoresTest;
     }
 }

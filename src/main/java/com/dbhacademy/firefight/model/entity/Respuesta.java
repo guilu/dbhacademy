@@ -17,10 +17,7 @@ public class Respuesta extends BaseEntity {
     @JsonIgnore
     private Pregunta pregunta;
 
-    @Size(max = 50)
-    @Column(unique = true)
-    private String codigo;
-    @Size(max = 255)
+    @Size(max = 1024)
     @Column
     private String texto;
     @Column
@@ -32,14 +29,6 @@ public class Respuesta extends BaseEntity {
 
     public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getTexto() {

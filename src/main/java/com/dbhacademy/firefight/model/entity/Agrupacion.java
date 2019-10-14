@@ -13,23 +13,11 @@ public class Agrupacion extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Size(max = 50)
-	@Column(unique = true)
-	private String codigo;
-
-	@Size(max = 255)
+	@Size(max = 1024)
 	private String texto;
 
 	@OneToMany(mappedBy = "agrupacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Tema> temas;
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
 
 	public String getTexto() {
 		return texto;

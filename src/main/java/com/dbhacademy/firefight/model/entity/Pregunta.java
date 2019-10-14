@@ -19,11 +19,7 @@ public class Pregunta extends BaseEntity {
 	@JsonIgnore
 	private Tema tema;
 
-	@Size(max = 50)
-	@Column(unique = true)
-	private String codigo;
-
-	@Size(max = 255)
+	@Size(max = 1024)
 	private String texto;
 
 	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -35,14 +31,6 @@ public class Pregunta extends BaseEntity {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getTexto() {

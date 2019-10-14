@@ -1,7 +1,7 @@
 package com.dbhacademy.firefight.controller;
 
+import com.dbhacademy.firefight.model.dto.ContadoresTest;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
-import com.dbhacademy.firefight.model.dto.Test;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.service.AgrupacionService;
 import com.dbhacademy.firefight.service.TestService;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -44,13 +45,32 @@ public class FrontEndController {
         LOG.info("recibo del form {} tema(s): {}", temasSeleccionados.getTemas().size(), temasSeleccionados.toString());
         LOG.info("{} preguntas por tema.", temasSeleccionados.getNumPreguntasPorTema());
 
-        //generamos el test con los temasSeleccionados y el numero de preguntas para dejar en la sesion una lista de Preguntas-Respuestas.
-        Test test = testService.generaTest(temasSeleccionados);
+        List<Pregunta> preguntas = testService.generaPreguntas(temasSeleccionados);
+        ContadoresTest contadoresTest = new ContadoresTest();
+        contadoresTest.setNumPreguntasPorTemas(temasSeleccionados.getNumPreguntasPorTema());
+        contadoresTest.setNumPreguntasTotal(preguntas.size());
 
-        LOG.info("test generado");
+        model.addAttribute("contadoresTest", contadoresTest);
+        session.setAttribute("preguntas", preguntas);
+        model.addAttribute("preguntas", preguntas);
 
-        session.setAttribute("test", test);
-        model.addAttribute("test",test);
         return "test";
     }
+
+    @PostMapping("/pasaPregunta")
+    public String pasaPregunta(@ModelAttribute ContadoresTest contadoresTest, Model model, HttpSession session){
+        List<Pregunta> preguntas = (List<Pregunta>)session.getAttribute("preguntas");
+
+        if (contadoresTest.getCurrent() <= preguntas.size()) {
+            contadoresTest.incrementaCurrent(1);
+            model.addAttribute("contadoresTest", contadoresTest);
+            model.addAttribute("preguntas", preguntas );
+            return "test";
+        } else {
+            return "fin";
+        }
+    }
+
+
+
 }

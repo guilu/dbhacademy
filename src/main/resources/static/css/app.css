@@ -108,3 +108,12 @@ html {
 .border-white {
   border: 1px solid white;
 }
+.font-size-075 {
+  font-size: 0.75em;
+}
+.font-color-red {
+  color:red;
+}
+.font-color-green {
+  color:green;
+}

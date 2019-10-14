@@ -9,23 +9,125 @@
 
 <main role="main" class="container-fluid">
 
-    <!-- el fragmento con la pregunta -->
-    <main role="main" th:replace="fragments/pregunta-test :: pregunta"></main>
+    <input  type="hidden" id="numPreguntasTotales" th:value="${preguntas.size()}">
+
+    <form id="formPregunta" th:action="@{/pasaPregunta}" th:object="${contadoresTest}" method="post">
+
+        <input type="hidden" id="txtAciertos" th:field="*{aciertos}"/>
+        <input type="hidden" id="txtErrores" th:field="*{errores}"/>
+        <input type="hidden" id="txtCurrent" th:field="*{current}"/>
+        <input type="hidden" id="txtNumPreguntasPorTemas" th:field="*{numPreguntasPorTemas}"/>
+        <input type="hidden" id="txtNumPreguntasTotal" th:field="*{numPreguntasTotal}"/>
+
+
+        <div class="row text-muted font-weight-bold px-3">
+            <div class="col-sm-6">
+                <span>Aciertos: </span><span th:text="${contadoresTest.aciertos}" id="aciertos">0</span> , Errores:
+                <span th:text="${contadoresTest.errores}" id="errores">0</span>
+            </div>
+            <div class="col-sm-6 text-right">
+                <span>Realizados: </span><span th:text="${contadoresTest.current}" id="current">0</span> / <span
+                    th:text="${preguntas.size()}">Total</span>
+            </div>
+        </div>
+
+        <main role="main" th:replace="fragments/pregunta :: pregunta(${preguntas.get(contadoresTest.current)},${contadoresTest.current})"></main>
+
+        <small class="d-block mt-3">
+                <span class="row">
+                    <span class="col-sm-6"></span>
+                    <span class="col-sm-6 text-right ">
+                        <a class="btn btn-primary disabled" href="#" role="button" id="btnNext">Siguiente »</a>
+                        <a class="btn btn-secondary" href="#" role="button" id="btnCorregir">Corregir »</a>
+                    </span>
+                </span>
+        </small>
+    </form>
 
 </main>
 
+<div class="modal" tabindex="-1" role="dialog" id="mdlError">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-muted">
+                <p id="txtError">Sorry!, de los temas seleccionados no he podido obtener ninguna pregunta.
+                    Vuelve atrás y selecciona otros temas.</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary text-white" id="btnVolverAtras" th:href="@{/}">volver atrás</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="../static/js/test.js" th:src="@{/js/test.js}"></script>
-<script>
+<script type="text/javascript">
     // <![CDATA[
-        jQuery(document).ready(function() {
-            var temas = $('#numPreguntasPorTema').val();
-            Test.init(temas);
+    jQuery(document).ready(function () {
 
+        var numPreguntasTotales = $('#numPreguntasTotal').val();
+        if (numPreguntasTotales === 0) {
+            $('#mdlError').modal('show');
+        }
+
+        $('#btnCorregir').on('click', function () {
+            var current = $('#current');
+            var txtCurrent = $('#txtCurrent');
+
+            var aciertos = $('#aciertos');
+            var txtAciertos = $('#txtAciertos');
+
+            var errores = $('#errores');
+            var txtErrores = $('#txtErrores');
+
+            var ok = false;
+
+            var soluciones = $('.solucion');
+            soluciones.each(function () {
+                var solucion = $(this);
+                var respuesta = solucion.find('.respuesta');
+
+                if (respuesta.hasClass('c')) {
+                    respuesta.addClass('fa fa-check-circle font-color-green');
+                    var check = $('#r_'+respuesta.prop('id'));
+                    if (check.prop('checked') == true) {
+                        var currentAciertos = parseInt(aciertos.text()) + 1;
+                        aciertos.text(currentAciertos);
+                        txtAciertos.val(currentAciertos);
+                        ok = true;
+                    }
+                } else {
+                    respuesta.addClass('fa fa-times-circle font-color-red')
+                }
+                solucion.show("slow");
+            });
+            if (!ok) {
+                var currentErrores = parseInt(errores.text()) + 1;
+                errores.text(currentErrores);
+                txtErrores.val(currentErrores);
+            }
+            $(this).addClass("disabled");
+            $('#btnNext').removeClass('disabled');
+            var currentCurrent = parseInt(current.text()) + 1;
+            current.text(currentCurrent);
+            txtCurrent.val(currentCurrent);
         });
+
+
+        $('#btnNext').on('click', function () {
+            $('#formPregunta').submit();
+        });
+    });
     // ]]>
 </script>
-<script th:replace="fragments/pregunta-test :: pregunta-js"></script>
+
 
 <div th:insert="~{fragments/footer :: copy}"></div>
 </body>
