@@ -22,7 +22,7 @@ public class TestService {
 
     public List<Pregunta> generaPreguntas(TemasSeleccionados temasSeleccionados){
         List<Pregunta> flattenPreguntas = new ArrayList<>();
-        List<Tema> temas = this.temaService.scramble(temasSeleccionados.getTemas());
+        List<Tema> temas = this.temaService.scramble(temasSeleccionados.getTemas(), temasSeleccionados.getNumPreguntasPorTema());
         for(Tema tema : temas){
             flattenPreguntas.addAll(tema.getPreguntas());
         }

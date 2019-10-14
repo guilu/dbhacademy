@@ -37,7 +37,7 @@ public class TemaService {
 	 * @param temas
 	 * @return
 	 */
-	public List<Tema> scramble(List<Tema> temas){
+	public List<Tema> scramble(List<Tema> temas,int preguntasPorTema){
 		Collections.shuffle(temas);
 		for(Tema tema : temas){
 			Collections.shuffle( this.preguntaService.scramble(tema.getPreguntas()));

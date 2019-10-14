@@ -62,7 +62,6 @@ public class FrontEndController {
         List<Pregunta> preguntas = (List<Pregunta>)session.getAttribute("preguntas");
 
         if (contadoresTest.getCurrent() <= preguntas.size()) {
-            contadoresTest.incrementaCurrent(1);
             model.addAttribute("contadoresTest", contadoresTest);
             model.addAttribute("preguntas", preguntas );
             return "test";
@@ -70,7 +69,5 @@ public class FrontEndController {
             return "fin";
         }
     }
-
-
 
 }
