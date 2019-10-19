@@ -50,6 +50,9 @@ public class FrontEndController {
         contadoresTest.setNumPreguntasPorTemas(temasSeleccionados.getNumPreguntasPorTema());
         contadoresTest.setNumPreguntasTotal(preguntas.size());
 
+        LOG.info("Preguntas generadas:{}", preguntas.size());
+        if(preguntas.size()==0) preguntas=null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
+
         model.addAttribute("contadoresTest", contadoresTest);
         session.setAttribute("preguntas", preguntas);
         model.addAttribute("preguntas", preguntas);

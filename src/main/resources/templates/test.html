@@ -9,7 +9,7 @@
 
 <main role="main" class="container-fluid">
 
-    <input  type="hidden" id="numPreguntasTotales" th:value="${preguntas.size()}">
+    <input  type="hidden" id="numPreguntasTotales" th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}">
 
     <form id="formPregunta" th:action="@{/pasaPregunta}" th:object="${contadoresTest}" method="post">
 
@@ -25,20 +25,20 @@
                 <span>Aciertos: </span><span th:text="${contadoresTest.aciertos}" id="aciertos">0</span> , Errores:
                 <span th:text="${contadoresTest.errores}" id="errores">0</span>
             </div>
-            <div class="col-sm-6 text-right">
+            <div class="col-sm-6 text-right pr-5">
                 <span>Realizados: </span><span th:text="${contadoresTest.current}" id="current">0</span> / <span
-                    th:text="${preguntas.size()}">Total</span>
+                    th:text="${preguntas?.size()}">Total</span>
             </div>
         </div>
 
-        <main role="main" th:replace="fragments/pregunta :: pregunta(${preguntas.get(contadoresTest.current)},${contadoresTest.current}+1)"></main>
+        <main role="main" th:replace="fragments/pregunta :: pregunta(${preguntas?.get(contadoresTest?.current)},${contadoresTest?.current}+1)"></main>
 
         <small class="d-block mt-3">
                 <span class="row">
                     <span class="col-sm-6"></span>
-                    <span class="col-sm-6 text-right ">
-                        <a class="btn btn-primary disabled" href="#" role="button" id="btnNext">Siguiente »</a>
-                        <a class="btn btn-secondary" href="#" role="button" id="btnCorregir">Corregir »</a>
+                    <span class="col-sm-6 text-right pr-4">
+                        <a class="btn btn-primary disabled" href="#" role="button" id="btnNext" style="display: none">Siguiente »</a>
+                        <a class="btn btn-primary" href="#" role="button" id="btnCorregir">Corregir »</a>
                     </span>
                 </span>
         </small>
@@ -72,8 +72,8 @@
     // <![CDATA[
     jQuery(document).ready(function () {
 
-        var numPreguntasTotales = $('#numPreguntasTotal').val();
-        if (numPreguntasTotales === 0) {
+        var numPreguntasTotales = $('#numPreguntasTotales').val();
+        if (numPreguntasTotales == '0') {
             $('#mdlError').modal('show');
         }
 
@@ -113,8 +113,8 @@
                 errores.text(currentErrores);
                 txtErrores.val(currentErrores);
             }
-            $(this).addClass("disabled");
-            $('#btnNext').removeClass('disabled');
+            $(this).addClass("disabled").hide();
+            $('#btnNext').removeClass('disabled').show();
             var currentCurrent = parseInt(current.text()) + 1;
             current.text(currentCurrent);
             txtCurrent.val(currentCurrent);
