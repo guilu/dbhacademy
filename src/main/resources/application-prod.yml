@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: DBH_ACADEMY
+  datasource:
+    url: 'jdbc:mysql://192.168.1.200:3306/BDD_FIREFIGHT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+    username: 'firefight'
+    password: 'firefight'
+    initialization-mode: always
+    platform: mysql
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop #change to validate in production mode
+      use-new-id-generator-mappings: false #prevents HHH90000014: Found use of deprecated [org.hibernate.id.SequenceHiLoGenerator] sequence-based id generator; use org.hibernate.id.enhanced.SequenceStyleGenerator instead.  See Hibernate Domain Model Mapping Guide for details.
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+server:
+  port: ${PORT:3000}   # HTTP (Tomcat) port
+  
+  
+logging:
+#  pattern:
+#    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework.web: WARN
+    #org.hibernate: INFO
+    com.dbhacademy.firefight: DEBUG
+
+  

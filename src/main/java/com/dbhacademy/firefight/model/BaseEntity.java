@@ -21,8 +21,9 @@ public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1234L;
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_sec_gen")
-    @SequenceGenerator(name = "entity_sec_gen", sequenceName = "FF_ENTITY_SEQ", schema = "BDD_FIREFIGHT", initialValue = 1, allocationSize = 100)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_sec_gen")
+    //@SequenceGenerator(name = "entity_sec_gen", sequenceName = "FF_ENTITY_SEQ", schema = "BDD_FIREFIGHT", initialValue = 1, allocationSize = 100)
+    @GeneratedValue
     @Id
     @JsonIgnore
     private Long id;

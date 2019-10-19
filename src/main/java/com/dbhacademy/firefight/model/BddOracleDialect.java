@@ -1,7 +1,9 @@
 package com.dbhacademy.firefight.model;
 
 import org.hibernate.dialect.Oracle10gDialect;
+import org.springframework.context.annotation.Profile;
 
+@Profile("dev")
 public class BddOracleDialect extends Oracle10gDialect {
 
     public BddOracleDialect() {
