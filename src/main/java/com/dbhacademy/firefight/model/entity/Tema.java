@@ -1,53 +1,69 @@
 package com.dbhacademy.firefight.model.entity;
 
-import java.util.List;
+import com.dbhacademy.firefight.model.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-
-import com.dbhacademy.firefight.model.BaseEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "TB02_TEMA", schema = "BDD_FIREFIGHT")
 public class Tema extends BaseEntity {
 
-	private static final long serialVersionUID = 2L;
+	private static final Logger LOG = LoggerFactory.getLogger(Tema.class);
 
-	@ManyToOne
-	@JoinColumn(name = "AGRUPACION_ID", referencedColumnName = "ID")
-	@JsonIgnore
-	private Agrupacion agrupacion;
+    private static final long serialVersionUID = 2L;
 
-	@Size(max = 1024)
-	private String texto;
-	
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Pregunta> preguntas;
+    @ManyToOne
+    @JoinColumn(name = "AGRUPACION_ID", referencedColumnName = "ID")
+    @JsonIgnore
+    private Agrupacion agrupacion;
 
-	public Agrupacion getAgrupacion() {
-		return agrupacion;
-	}
+    @Size(max = 1024)
+    private String texto;
 
-	public void setAgrupacion(Agrupacion agrupacion) {
-		this.agrupacion = agrupacion;
-	}
+    @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Pregunta> preguntas;
 
-	public String getTexto() {
-		return texto;
-	}
+    public Agrupacion getAgrupacion() {
+        return agrupacion;
+    }
 
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
+    public void setAgrupacion(Agrupacion agrupacion) {
+        this.agrupacion = agrupacion;
+    }
 
-	public List<Pregunta> getPreguntas() {
-		return preguntas;
-	}
+    public String getTexto() {
+        return texto;
+    }
 
-	public void setPreguntas(List<Pregunta> preguntas) {
-		this.preguntas = preguntas;
-	}
-	
-	
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public List<Pregunta> getPreguntas() {
+        return preguntas;
+    }
+
+    public void setPreguntas(List<Pregunta> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+
+    public List<Pregunta> getPreguntasRandom(int numPreguntas) {
+        //si tiene mas preguntas que numPreguntas
+        //desordeno y saco numPreguntas
+        if (this.preguntas.size() > numPreguntas) {
+        	LOG.info("Del tema {} hay {} preguntas y voy a intentar sacar {} más ",this.texto,this.getPreguntas().size(),numPreguntas);
+            Collections.shuffle(this.getPreguntas());
+            return this.getPreguntas().subList(0, numPreguntas);
+        } else {
+            Collections.shuffle(this.getPreguntas());
+            return this.getPreguntas();
+        }
+    }
 }

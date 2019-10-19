@@ -1,66 +1,74 @@
 package com.dbhacademy.firefight.service;
 
-import java.util.*;
-
 import com.dbhacademy.firefight.model.entity.Pregunta;
+import com.dbhacademy.firefight.model.entity.Tema;
+import com.dbhacademy.firefight.repository.TemaJpaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dbhacademy.firefight.model.entity.Tema;
-import com.dbhacademy.firefight.repository.TemaJpaRepository;
+import java.util.*;
 
 @Service
 public class TemaService {
 
-	private TemaJpaRepository temaJpaRepository;
-	private PreguntaService preguntaService;
+    private static final Logger LOG = LoggerFactory.getLogger(TemaService.class);
 
-	@Autowired
-	public TemaService(TemaJpaRepository temaJpaRepository, PreguntaService preguntaService) {
-		this.temaJpaRepository = temaJpaRepository;
-		this.preguntaService = preguntaService;
-	}
+    private TemaJpaRepository temaJpaRepository;
+    private PreguntaService preguntaService;
 
-	public List<Tema> getTemas() {
-		return this.temaJpaRepository.findAll();
-	}
+    @Autowired
+    public TemaService(TemaJpaRepository temaJpaRepository, PreguntaService preguntaService) {
+        this.temaJpaRepository = temaJpaRepository;
+        this.preguntaService = preguntaService;
+    }
 
-	public Optional<Tema> getTemaById(Long id){
-		return this.temaJpaRepository.findById(id);
-	}
+    public List<Tema> getTemas() {
+        return this.temaJpaRepository.findAll();
+    }
 
-	/**
-	 *  random tambien de las respuestas de las preguntas....
-	 *
-	 * @param temas
-	 * @return
-	 */
-	public List<Tema> scramble(List<Tema> temas,int preguntasPorTema){
-		Collections.shuffle(temas);
-		for(Tema tema : temas){
-			Collections.shuffle( this.preguntaService.scramble(tema.getPreguntas()));
-		}
-		return temas;
-	}
+    public Optional<Tema> getTemaById(Long id) {
+        return this.temaJpaRepository.findById(id);
+    }
 
-	/**
-	 * Selecciona un tema al azahar :P
-	 * @return
-	 */
-	public List<Pregunta> getTemasYPreguntasRandom(int numPreguntasTotales){
-		List<Tema> temas =  this.temaJpaRepository.findAll();
+    /**
+     * random tambien de las respuestas de las preguntas....
+     *
+     * @param temas
+     * @return
+     */
+    public List<Tema> scramble(List<Tema> temas, int preguntasPorTema) {
+        Collections.shuffle(temas);
+        for (Tema tema : temas) {
+            Collections.shuffle(this.preguntaService.scramble(tema.getPreguntas()));
+        }
+        return temas;
+    }
+
+    /**
+     * Selecciona un tema al azahar :P
+     *
+     * @return
+     */
+    public List<Pregunta> getTemasYPreguntasRandom(int numPreguntasTotales) {
+
 		List<Pregunta> flattenPreguntas = new ArrayList<>();
 
-		for(Tema tema : temas){
-			List<Pregunta> preguntas = tema.getPreguntas();
+        List<Tema> temas = this.temaJpaRepository.findTemasConPreguntas();
+        LOG.info("Hay {} temas con preguntas", temas.size());
+        int temasSize = temas.size();
 
-			if (preguntas.size()>0) {
-				Random rand = new Random();
-				Pregunta pregunta = preguntas.get(rand.nextInt(preguntas.size()));
-				flattenPreguntas.add(pregunta);
+        if(temasSize>0){
+			int preguntasXTemas = numPreguntasTotales / temasSize;
+			LOG.info("De cada tema hay que sacar {} preguntas si puedo", preguntasXTemas);
+
+			//En realidad voy a sacar de cad tema dsponible preguntasXTemas así que:
+			for (int temaCurrent = 0; temaCurrent < temasSize; temaCurrent++) {
+				//los temas tienen que salir en orden así que hay que sacar el numero de preguntas de cada tema
+				flattenPreguntas.addAll(temas.get(temaCurrent).getPreguntasRandom(preguntasXTemas));
 			}
 		}
-
-		return flattenPreguntas;
-	}
+        return flattenPreguntas;
+    }
 }

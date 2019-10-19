@@ -4,6 +4,8 @@ import com.dbhacademy.firefight.model.dto.ContadoresTest;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Tema;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Service
 public class TestService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TestService.class);
 
     private TemaService temaService;
 
@@ -37,8 +41,6 @@ public class TestService {
     }
 
     public List<Pregunta> generaSimulacro(int numPreguntasTotales){
-        List<Pregunta> flattenPreguntas = new ArrayList<>();
-
         // 50 preguntas.... recorre todos los temas cogiendo una pregunta al azar
         return temaService.getTemasYPreguntasRandom(numPreguntasTotales);
     }
