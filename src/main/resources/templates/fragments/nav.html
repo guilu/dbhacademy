@@ -14,8 +14,15 @@
                 <a class="nav-link" href="../prgunta-contadoresTest.html" th:href="@{/}">Selecciona Temas <span
                         class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../pregunta-simulacro.html" th:href="@{/simulacro}">Simulacro</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Genera Simulacro
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="@{simulacro/50}">50 preguntas</a>
+                    <a class="dropdown-item" th:href="@{simulacro/75}">75 preguntas</a>
+                    <a class="dropdown-item" th:href="@{simulacro/100}">100 preguntas</a>
+                </div>
             </li>
         </ul>
         <form class="form-inline my-2 my-md-0">

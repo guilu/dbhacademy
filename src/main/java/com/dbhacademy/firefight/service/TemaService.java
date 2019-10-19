@@ -1,8 +1,6 @@
 package com.dbhacademy.firefight.service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +41,26 @@ public class TemaService {
 			Collections.shuffle( this.preguntaService.scramble(tema.getPreguntas()));
 		}
 		return temas;
+	}
+
+	/**
+	 * Selecciona un tema al azahar :P
+	 * @return
+	 */
+	public List<Pregunta> getTemasYPreguntasRandom(int numPreguntasTotales){
+		List<Tema> temas =  this.temaJpaRepository.findAll();
+		List<Pregunta> flattenPreguntas = new ArrayList<>();
+
+		for(Tema tema : temas){
+			List<Pregunta> preguntas = tema.getPreguntas();
+
+			if (preguntas.size()>0) {
+				Random rand = new Random();
+				Pregunta pregunta = preguntas.get(rand.nextInt(preguntas.size()));
+				flattenPreguntas.add(pregunta);
+			}
+		}
+
+		return flattenPreguntas;
 	}
 }

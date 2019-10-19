@@ -35,4 +35,11 @@ public class TestService {
         contadoresTest.setErrores(contadoresTest.getErrores());
         return contadoresTest;
     }
+
+    public List<Pregunta> generaSimulacro(int numPreguntasTotales){
+        List<Pregunta> flattenPreguntas = new ArrayList<>();
+
+        // 50 preguntas.... recorre todos los temas cogiendo una pregunta al azar
+        return temaService.getTemasYPreguntasRandom(numPreguntasTotales);
+    }
 }

@@ -9,34 +9,78 @@
 
 <main role="main" class="container-fluid">
 
-    <!-- el fragmento con la pregunta -->
-    <main role="main" th:replace="fragments/pregunta-contadoresTest :: pregunta"></main>
+    <input  type="hidden" id="numPreguntasTotales" th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}">
 
-    <span id="reloj">60*numPreguntas</span>
+        <input type="hidden" id="txtAciertos"/>
+        <input type="hidden" id="txtErrores"/>
 
+        <th:block th:each="pregunta,iter : ${preguntas}">
+
+            <main role="main" th:replace="fragments/pregunta :: pregunta(${pregunta},${iter.index+1})"></main>
+
+        </th:block>
+
+        <small class="d-block mt-3">
+                <span class="row">
+                    <span class="col-sm-6"></span>
+                    <span class="col-sm-6 text-right pr-4">
+                        <a class="btn btn-primary" href="#" role="button" id="btnCorregir">Corregir »</a>
+                    </span>
+                </span>
+        </small>
 </main>
 
 
-<script src="../static/js/contadoresTest.js" th:src="@{/js/contadoresTest.js}"></script>
-<script>
+<script type="text/javascript">
     // <![CDATA[
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
 
-        var seconds = document.getElementById("reloj").textContent;
-        var countdown = setInterval(function() {
-            seconds--;
-            document.getElementById("reloj").textContent = seconds;
-            if (seconds <= 0) {
-                clearInterval(countdown);
-                console.log("corregir")
+
+        $('#btnCorregir').on('click', function () {
+
+            var aciertos = $('#aciertos');
+            var txtAciertos = $('#txtAciertos');
+
+            var errores = $('#errores');
+            var txtErrores = $('#txtErrores');
+
+            var ok = false;
+
+            var soluciones = $('.solucion');
+            soluciones.each(function () {
+                var solucion = $(this);
+                var respuesta = solucion.find('.respuesta');
+
+                if (respuesta.hasClass('c')) {
+                    respuesta.addClass('fa fa-check-circle font-color-green');
+                    var check = $('#r_'+respuesta.prop('id'));
+                    if (check.prop('checked') == true) {
+                        var currentAciertos = parseInt(aciertos.text()) + 1;
+                        aciertos.text(currentAciertos);
+                        txtAciertos.val(currentAciertos);
+                        ok = true;
+                    }
+                } else {
+                    respuesta.addClass('fa fa-times-circle font-color-red')
+                }
+                solucion.show("slow");
+            });
+            if (!ok) {
+                var currentErrores = parseInt(errores.text()) + 1;
+                errores.text(currentErrores);
+                txtErrores.val(currentErrores);
             }
-        }, 1000);
-
+            $(this).addClass("disabled").hide();
+            $('#btnNext').removeClass('disabled').show();
+            var currentCurrent = parseInt(current.text()) + 1;
+            current.text(currentCurrent);
+            txtCurrent.val(currentCurrent);
+        });
 
     });
     // ]]>
 </script>
-<script th:replace="fragments/pregunta-contadoresTest :: pregunta-js"></script>
+
 
 <div th:insert="~{fragments/footer :: copy}"></div>
 </body>
