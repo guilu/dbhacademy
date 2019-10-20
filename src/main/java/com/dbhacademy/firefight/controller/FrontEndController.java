@@ -67,6 +67,8 @@ public class FrontEndController {
     public String pasaPregunta(@ModelAttribute ContadoresTest contadoresTest, Model model, HttpSession session) {
         List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
 
+        LOG.info("paso Pregunta {} de {}",contadoresTest.getCurrent(), preguntas.size());
+
         if (contadoresTest.getCurrent() <= preguntas.size()) {
             model.addAttribute("contadoresTest", contadoresTest);
             model.addAttribute("preguntas", preguntas);

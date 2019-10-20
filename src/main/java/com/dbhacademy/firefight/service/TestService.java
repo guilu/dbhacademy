@@ -24,23 +24,27 @@ public class TestService {
         this.temaService = temaService;
     }
 
-    public List<Pregunta> generaPreguntas(TemasSeleccionados temasSeleccionados){
+    public List<Pregunta> generaPreguntas(TemasSeleccionados temasSeleccionados) {
         List<Pregunta> flattenPreguntas = new ArrayList<>();
         List<Tema> temas = this.temaService.scramble(temasSeleccionados.getTemas(), temasSeleccionados.getNumPreguntasPorTema());
-        for(Tema tema : temas){
+        for (Tema tema : temas) {
             flattenPreguntas.addAll(tema.getPreguntas());
         }
-        return flattenPreguntas;
+        if (flattenPreguntas.size() < temasSeleccionados.getNumPreguntasPorTema()) {
+            return flattenPreguntas;
+        } else {
+            return flattenPreguntas.subList(0, temasSeleccionados.getNumPreguntasPorTema());
+        }
     }
 
-    public ContadoresTest pasaPregunta(ContadoresTest contadoresTest){
-        contadoresTest.setCurrent(contadoresTest.getCurrent()+1);
+    public ContadoresTest pasaPregunta(ContadoresTest contadoresTest) {
+        contadoresTest.setCurrent(contadoresTest.getCurrent() + 1);
         contadoresTest.setAciertos(contadoresTest.getAciertos());
         contadoresTest.setErrores(contadoresTest.getErrores());
         return contadoresTest;
     }
 
-    public List<Pregunta> generaSimulacro(int numPreguntasTotales){
+    public List<Pregunta> generaSimulacro(int numPreguntasTotales) {
         // 50 preguntas.... recorre todos los temas cogiendo una pregunta al azar
         return temaService.getTemasYPreguntasRandom(numPreguntasTotales);
     }

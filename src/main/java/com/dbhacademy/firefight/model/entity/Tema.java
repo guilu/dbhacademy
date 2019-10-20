@@ -53,7 +53,11 @@ public class Tema extends BaseEntity {
         this.preguntas = preguntas;
     }
 
-
+    /**
+     *
+     * @param numPreguntas
+     * @return
+     */
     public List<Pregunta> getPreguntasRandom(int numPreguntas) {
         //si tiene mas preguntas que numPreguntas
         //desordeno y saco numPreguntas
@@ -65,5 +69,13 @@ public class Tema extends BaseEntity {
             Collections.shuffle(this.getPreguntas());
             return this.getPreguntas();
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean hasPreguntas(){
+        return (this.getPreguntas().size() > 0);
     }
 }
