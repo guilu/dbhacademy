@@ -7,9 +7,31 @@
 <body class="bg-light">
 <div th:replace="~{fragments/nav :: nav}"></div>
 
+
+
 <main role="main" class="container-fluid">
 
-    <input type="hidden" id="numPreguntasTotales" th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}">
+    <div class="row bg-white box-shadow p-2">
+        <div class="col-sm-6">
+            <span>Aciertos</span>
+            <span th:text="${contadoresTest.aciertos}" id="aciertos"
+                  class="font-weight-bold bg-dark text-white p-1 rounded"> 0 </span>
+            <span>Errores</span>
+            <span th:text="${contadoresTest.errores}" id="errores"
+                  class="ont-weight-bold bg-red text-white p-1 rounded"> 0 </span>
+        </div>
+        <div class="col-sm-6 text-right">
+            <span>Realizados: </span>
+            <span th:text="${contadoresTest.current}" id="current"
+                  class="ont-weight-bold bg-dark text-white p-1 rounded"> 0 </span> /
+            <span th:text="${preguntas?.size()}">Total</span>
+        </div>
+    </div>
+
+</main>
+
+
+<main role="main" class="container">
 
     <form id="formPregunta" th:action="@{/pasaPregunta}" th:object="${contadoresTest}" method="post">
 
@@ -17,33 +39,21 @@
         <input type="hidden" id="txtErrores" th:field="*{errores}"/>
         <input type="hidden" id="txtCurrent" th:field="*{current}"/>
         <input type="hidden" id="txtNumPreguntasPorTemas" th:field="*{numPreguntasPorTemas}"/>
-        <input type="hidden" id="txtNumPreguntasTotal" th:field="*{numPreguntasTotal}"/>
-
-
-        <div class="row text-muted font-weight-bold px-3">
-            <div class="col-sm-6">
-                <span>Aciertos: </span><span th:text="${contadoresTest.aciertos}" id="aciertos">0</span> , Errores:
-                <span th:text="${contadoresTest.errores}" id="errores">0</span>
-            </div>
-            <div class="col-sm-6 text-right pr-5">
-                <span>Realizados: </span><span th:text="${contadoresTest.current}" id="current">0</span> / <span
-                    th:text="${preguntas?.size()}">Total</span>
-            </div>
-        </div>
-
-        <main role="main"
-              th:replace="fragments/pregunta :: pregunta(${preguntas?.get(contadoresTest?.current)},${contadoresTest?.current}+1)"></main>
-
-        <div class="container-fluid mt-3">
-                <span class="row">
-                    <span class="col-sm-6"></span>
-                    <span class="col-sm-6 text-right">
-                        <a class="btn btn-primary disabled" href="#" role="button" id="btnNext" style="display: none">Siguiente »</a>
-                        <a class="btn btn-primary" href="#" role="button" id="btnCorregir">Corregir »</a>
-                    </span>
-                </span>
-        </div>
+        <input type="hidden" id="txtNumPreguntasTotal" th:field="*{numPreguntasTotal}"
+               th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}"/>
     </form>
+
+    <div th:replace="fragments/pregunta :: pregunta(${preguntas?.get(contadoresTest?.current)},${contadoresTest?.current}+1)"></div>
+
+
+    <div class="row">
+        <span class="col-sm-6"></span>
+        <span class="col-sm-6 text-right">
+            <a class="btn btn-primary disabled" href="#" role="button" id="btnNext" style="display: none">Siguiente »</a>
+            <a class="btn btn-primary" href="#" role="button" id="btnCorregir">Corregir »</a>
+        </span>
+    </div>
+
 
 </main>
 
@@ -71,7 +81,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Fin del Test!  Calificación.</h5>
+                <h5 class="modal-title">Fin del Test! Calificación.</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -79,8 +89,9 @@
             <div class="modal-body text-muted">
                 <p id="txtResultado">Has sacado {} bien y {} mal</p>
                 <p id="txtPorcentaje">Porcentaje de acierto 20%</p>
-                <div class="progress"  style="height: 25px;">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="porcentajeAciertos"></div>
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100" id="porcentajeAciertos"></div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -96,7 +107,7 @@
     // <![CDATA[
     jQuery(document).ready(function () {
 
-        var numPreguntasTotales = $('#numPreguntasTotales').val();
+        var numPreguntasTotales = $('#txtNumPreguntasTotal').val();
 
         if (numPreguntasTotales == '0') {
             $('#mdlError').modal('show');
@@ -131,7 +142,7 @@
                         errorMarcado = true;
                     }
                 }
-                solucion.show("slow");
+                solucion.show(800);
             });
 
             if (okMarcado && !errorMarcado) {
@@ -164,27 +175,27 @@
                 var numAciertos = aciertos.text();
                 var numErrores = errores.text();
                 var porcentaje;
-                if(numErrores == 0 ) {
+                if (numErrores == 0) {
                     porcentaje = 100;
                 } else {
-                    porcentaje = (numAciertos/numErrores)*100;
+                    porcentaje = (numAciertos / numErrores) * 100;
                 }
 
-                $('#txtResultado').text('Has tenido ' + numAciertos + ' aciertos y '+ numErrores +' errores.');
+                $('#txtResultado').text('Has tenido ' + numAciertos + ' aciertos y ' + numErrores + ' errores.');
                 $('#txtPorcentaje').text('Porcentaje de acierto: ' + porcentaje + '%');
-                $('#porcentajeAciertos').css('width',porcentaje);
+                $('#porcentajeAciertos').css('width', porcentaje);
                 $('#mdlResultado').modal('show');
             } else {
                 $('#formPregunta').submit();
             }
         });
 
-        $(document).keypress(function(e){
-            if (e.which == 13){
-                if($("#btnCorregir").hasClass('disabled')) {
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                if ($("#btnCorregir").hasClass('disabled')) {
                     $("#btnNext").click();
                 }
-                if($("#btnNext").hasClass('disabled')) {
+                if ($("#btnNext").hasClass('disabled')) {
                     $("#btnCorregir").click();
                 }
 

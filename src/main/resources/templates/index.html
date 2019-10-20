@@ -34,6 +34,7 @@
                 <label class="col-sm-4 col-form-label" for="cbNumPreguntas" >Selecciona el número de preguntas por tema:</label>
                 <div class="col-sm-4">
                     <select class="form-control form-lg" id="cbNumPreguntas" th:field="*{numPreguntasPorTema}">
+                        <option value="999">Todas</option>
                         <option value="10">10 preguntas</option>
                         <option value="20">20 preguntas</option>
                         <option value="30">30 preguntas</option>
@@ -92,8 +93,9 @@
     jQuery(document).ready(function () {
         var formTemas = $('#formTemas');
         var btn = $('#btnGenerarTest');
-        var btnTest = $('#btnEmpezarTest');
         var cbnNumPreguntas = $('#cbNumPreguntas');
+
+        var btnTest = $('#btnEmpezarTest');
 
         btn.on('click', function () {
             var numTemasSeleccionados = formTemas.find("input[type=checkbox]:checked").length;
@@ -106,7 +108,8 @@
 
                 var txtTest = $('#txtTest');
                 txtTest.text("Vamos a generar un contadoresTest de " + numTemasSeleccionados + " Tema con " + cbnNumPreguntas.val() + " preguntas por tema");
-                $('#mdlTest').modal('show');
+                //$('#mdlTest').modal('show');
+                btnTest.click();
             }
         });
 

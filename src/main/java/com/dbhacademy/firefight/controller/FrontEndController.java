@@ -3,7 +3,6 @@ package com.dbhacademy.firefight.controller;
 import com.dbhacademy.firefight.model.dto.ContadoresTest;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
 import com.dbhacademy.firefight.model.entity.Pregunta;
-import com.dbhacademy.firefight.model.entity.Tema;
 import com.dbhacademy.firefight.service.AgrupacionService;
 import com.dbhacademy.firefight.service.TestService;
 import org.slf4j.Logger;
@@ -11,13 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,6 +33,7 @@ public class FrontEndController {
     public String index(Model model) {
         model.addAttribute("agrupaciones", this.agrupacionService.getAgrupaciones());
         model.addAttribute("temasSeleccionados", new TemasSeleccionados());
+        model.addAttribute("menu", "test");
         return "index";
     }
 
@@ -59,7 +55,7 @@ public class FrontEndController {
         model.addAttribute("contadoresTest", contadoresTest);
         session.setAttribute("preguntas", preguntas);
         model.addAttribute("preguntas", preguntas);
-
+        model.addAttribute("menu", "test");
         return "test";
     }
 
@@ -67,15 +63,12 @@ public class FrontEndController {
     public String pasaPregunta(@ModelAttribute ContadoresTest contadoresTest, Model model, HttpSession session) {
         List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
 
-        LOG.info("paso Pregunta {} de {}",contadoresTest.getCurrent(), preguntas.size());
+        LOG.info("paso Pregunta {} de {}", contadoresTest.getCurrent(), preguntas.size());
 
-        if (contadoresTest.getCurrent() <= preguntas.size()) {
-            model.addAttribute("contadoresTest", contadoresTest);
-            model.addAttribute("preguntas", preguntas);
-            return "test";
-        } else {
-            return "fin";
-        }
+        model.addAttribute("contadoresTest", contadoresTest);
+        model.addAttribute("preguntas", preguntas);
+        model.addAttribute("menu", "test");
+        return "test";
     }
 
 
@@ -92,6 +85,14 @@ public class FrontEndController {
 
         session.setAttribute("preguntas", preguntas);
         model.addAttribute("preguntas", preguntas);
+        model.addAttribute("menu", "simulacro");
         return "simulacro";
+    }
+
+
+    @PostMapping("/bsucar")
+    public String buscar(@RequestParam String textoABuscar) {
+        LOG.info("voy a ver done encuentro {}", textoABuscar);
+        return "resultado-buscar";
     }
 }
