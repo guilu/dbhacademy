@@ -38,10 +38,11 @@
     <div class="my-3 p-3 bg-white rounded box-shadow pregunta-body">
         <div class="media text-muted pt-3" th:each="respuesta,iter : ${pregunta?.getRespuestas()}">
 
-            <div class="pr-2 solucion" style="display: none">
-                <i class="respuesta fa fa-check" th:classappend="${respuesta.isCorrecta() ? 'c' : 'f'}" th:id="${respuesta.id}"></i>
+            <div class="marco-solucion">
+                <div class="pr-2 solucion" style="display: none">
+                    <i class="respuesta fa fa-check-circle" th:classappend="${respuesta.isCorrecta() ? 'c' : 'f'}" th:id="${respuesta.id}"></i>
+                </div>
             </div>
-
             <div class="media-body pb-3 small border-gray" th:classappend="${ iter.last ? '' : 'border-bottom'}">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="respuestas" id="defaultCheck1" th:id="${'r_'+respuesta.id}" style="margin-top:3px">

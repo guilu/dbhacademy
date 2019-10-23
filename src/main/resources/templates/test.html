@@ -114,6 +114,11 @@
         }
 
         $('#btnCorregir').on('click', function () {
+
+            //desactivo todos los radios
+            $('input[type=radio]').prop('disabled',true);
+
+
             var current = $('#current');
             var txtCurrent = $('#txtCurrent');
             var aciertos = $('#aciertos');
