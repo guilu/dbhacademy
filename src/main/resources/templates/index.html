@@ -18,7 +18,7 @@
 
     <form id="formTemas" th:action="@{/test}" th:object="${temasSeleccionados}" method="post">
         <div class="d-flex flex-wrap justify-content-center">
-            <div th:each="agrupacion,iter1 : ${agrupaciones}" class="p-3 m-2 bg-white text-muted rounded shadow-sm" id="agrupacion1" th:id="${'a_' + agrupacion.id}">
+            <div th:each="agrupacion,iter1 : ${agrupaciones}" class="p-3 m-2 bg-white text-muted rounded shadow-sm agrupacion" id="agrupacion1" th:id="${'a_' + agrupacion.id}">
                 <div><h6 th:text="${agrupacion.texto}">AGRUPACION</h6></div>
                 <hr/>
                 <div th:each="tema,iter2 : ${agrupacion.temas}" class="form-check">

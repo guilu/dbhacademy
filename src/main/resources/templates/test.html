@@ -31,7 +31,7 @@
 </main>
 
 
-<main role="main" class="container">
+<main role="main" class="container-fluid">
 
     <form id="formPregunta" th:action="@{/pasaPregunta}" th:object="${contadoresTest}" method="post">
 
@@ -191,7 +191,7 @@
         });
 
         $(document).keypress(function (e) {
-            if (e.which == 13) {
+            if ((e.which == 13) || (e.which ==32)) {
                 if ($("#btnCorregir").hasClass('disabled')) {
                     $("#btnNext").click();
                 }

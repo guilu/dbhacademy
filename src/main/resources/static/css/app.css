@@ -117,3 +117,7 @@ html {
 .font-color-green {
   color:green;
 }
+
+.agrupacion {
+  min-width:300px;
+}
