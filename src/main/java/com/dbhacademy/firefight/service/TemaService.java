@@ -61,12 +61,20 @@ public class TemaService {
 
         if(temasSize>0){
 			int preguntasXTemas = numPreguntasTotales / temasSize;
+			int resto = numPreguntasTotales % temasSize;
 			LOG.info("De cada tema hay que sacar {} preguntas si puedo", preguntasXTemas);
+            LOG.info("El resto son {}", resto);
 
 			//En realidad voy a sacar de cad tema dsponible preguntasXTemas así que:
 			for (int temaCurrent = 0; temaCurrent < temasSize; temaCurrent++) {
 				//los temas tienen que salir en orden así que hay que sacar el numero de preguntas de cada tema
-				flattenPreguntas.addAll(temas.get(temaCurrent).getPreguntasRandom(preguntasXTemas));
+                // y hasta los restos :P una pregunta más
+                if (resto>0) {
+                    flattenPreguntas.addAll(temas.get(temaCurrent).getPreguntasRandom(preguntasXTemas + 1));
+                } else {
+                    flattenPreguntas.addAll(temas.get(temaCurrent).getPreguntasRandom(preguntasXTemas));
+                }
+                resto--;
 			}
 		}
         return flattenPreguntas;

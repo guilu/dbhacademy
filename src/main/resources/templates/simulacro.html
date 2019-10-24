@@ -20,28 +20,53 @@
 
         </th:block>
 
-        <small class="d-block mt-3">
-                <span class="row">
-                    <span class="col-sm-6">
-                        <i class="fa fa-clock"></i> <span id="clock"></span>
-                    </span>
-                    <span class="col-sm-6 text-right pr-4">
-                        <a class="btn btn-primary" href="#" role="button" id="btnCorregir">Corregir »</a>
-                    </span>
-                </span>
-        </small>
+        <p class="my-5"></p>
+
+        <a class="btn btn-primary" href="#" role="button" id="button-corregir-simulacro">Corregir »</a>
+        <a class="btn btn-secondary" href="#" role="button" id="button-finalizar-simulacro" style="display: none" th:href="@{/}">Finalizar</a>
+
 </main>
 
+
+<div class="modal" tabindex="-1" role="dialog" id="mdlResultado">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Calificación: <span id="notaFinal" class="bg-purple rounded text-white-50 p-2"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-muted">
+                <p id="txtResultado">Has sacado {} bien y {} mal</p>
+                <p id="txtPorcentaje">Porcentaje de acierto 20%</p>
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100" id="porcentajeAciertos"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Finalizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="../static/js/simulacro.js" th:src="@{/js/simulacro.js}"></script>
 <script type="text/javascript">
     // <![CDATA[
     jQuery(document).ready(function () {
 
+        var reloj = $('#clock');
         var milisegundos = $('#numPreguntasTotales').val()*60*1000;
-        $('#clock').text(milisegundos);
-        //setTimeout(Simulacro.resolver(),$('#numPreguntasTotales').val()*60*1000);
-        setTimeout(Simulacro.resolver,milisegundos);
+        Simulacro.cuentaAtras(reloj,milisegundos);
+
+
+        $('#button-corregir-simulacro').on('click', function () {
+            Simulacro.resolver();
+        });
+
+
     });
     // ]]>
 </script>

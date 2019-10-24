@@ -24,7 +24,10 @@
                 </div>
             </li>
         </ul>
-        <form class="form-inline my-2 my-md-0" method="post" th:action="@{/buscar}">
+        <span class="navbar-text px-3 rounded bg-purple " id="menu-reloj" style="display: none">
+            <i class="fa fa-clock"></i> <span id="clock"></span>
+        </span>
+        <form class="form-inline my-2 my-md-0" method="post" th:action="@{/buscar}" th:if="${menu != 'simulacro'}">
             <input class="form-control" type="text" placeholder="Search" th:name="buscador">
         </form>
     </div>
