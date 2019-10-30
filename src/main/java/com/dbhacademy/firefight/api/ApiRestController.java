@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.dbhacademy.firefight.model.entity.Pregunta;
+import com.dbhacademy.firefight.model.entity.Respuesta;
 import com.dbhacademy.firefight.service.PreguntaService;
+import com.dbhacademy.firefight.service.RespuestaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +27,15 @@ public class ApiRestController {
 	private AgrupacionService agrupacionService;
 	private TemaService temaService;
 	private PreguntaService preguntaService;
+	private RespuestaService respuestaService;
 	
 	
 	@Autowired
-	public ApiRestController(AgrupacionService agrupacionService, TemaService temaservice, PreguntaService preguntaService) {
+	public ApiRestController(AgrupacionService agrupacionService, TemaService temaservice, PreguntaService preguntaService, RespuestaService respuestaService) {
 		this.agrupacionService = agrupacionService;
 		this.temaService = temaservice;
 		this.preguntaService = preguntaService;
+		this.respuestaService = respuestaService;
 	}
 
 	@RequestMapping("/agrupaciones")
@@ -39,9 +44,26 @@ public class ApiRestController {
 	}
 	
 	@RequestMapping("/temas")
-	public List<Tema> getTemas(){
-		return this.temaService.getTemas();
+	public List<Tema> getTemas(@RequestParam(value = "empty", required=false) boolean empty){
+		if (empty) {
+			return this.temaService.getTemasConPreguntas();
+		} else {
+			return this.temaService.getTemas();
+		}
 	}
+	
+	@RequestMapping("/preguntas")
+	public List<Pregunta> getPreguntas(){
+		return this.preguntaService.getPreguntas();
+	}
+	
+	
+	@RequestMapping("/respuestas")
+	public List<Respuesta> getRespuestas(){
+		return this.respuestaService.getRespuestas();
+	}
+	
+	
 
 	@RequestMapping("/tema/{id}/preguntas")
 	public List<Pregunta> getPreguntasByTema(@PathVariable("id") Long id, @RequestParam(required = false, defaultValue = "false") Boolean scramble){
@@ -53,4 +75,12 @@ public class ApiRestController {
 		}
 
 	}
+	
+	
+	@RequestMapping("/pregunta/{id}/respuestas")
+	public List<Respuesta> getRespuestasDePregunta(@PathVariable("id")Long id) {
+		return this.respuestaService.getRespuestasDePregunta(this.preguntaService.getById(id));
+	}
+	
+	
 }

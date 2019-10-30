@@ -31,6 +31,10 @@ public class TemaService {
     public Optional<Tema> getTemaById(Long id) {
         return this.temaJpaRepository.findById(id);
     }
+    
+    public List<Tema> getTemasConPreguntas(){
+    	return this.temaJpaRepository.findTemasConPreguntas();
+    }
 
     /**
      * random tambien de las respuestas de las preguntas....

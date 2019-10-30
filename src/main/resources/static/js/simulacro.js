@@ -101,6 +101,9 @@ var Simulacro = (function () {
 
             //Porcentaje de acierto de lo contestado (se entiende)....
             var porcentaje = parseFloat( (aciertos / (aciertos + errores) * 100)).toFixed(2);
+            if ((aciertos == 0) && (errores == 0)) {
+            	porcentaje = 0;
+            }
 
 
             var notaFinal = parseFloat(nota).toFixed(2);

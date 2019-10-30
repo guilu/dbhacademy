@@ -19,6 +19,14 @@ public class PreguntaService {
     public PreguntaService(PreguntaJpaRepository preguntaJpaRepository) {
         this.preguntaJpaRepository = preguntaJpaRepository;
     }
+    
+    public List<Pregunta> getPreguntas(){
+    	return this.preguntaJpaRepository.findAll();
+    }
+    
+    public Optional<Pregunta> getById(Long id) {
+    	return this.preguntaJpaRepository.findById(id);
+    }
 
     public List<Pregunta> getAllByTema(Optional<Tema> tema) {
         return this.preguntaJpaRepository.findByTema(tema);
