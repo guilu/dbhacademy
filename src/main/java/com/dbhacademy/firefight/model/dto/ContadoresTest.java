@@ -8,6 +8,8 @@ public class ContadoresTest {
     private int numPreguntasPorTemas;
     private int numPreguntasTotal;
 
+    private boolean fallada;
+
     public ContadoresTest() {
         this.aciertos = 0;
         this.errores = 0;
@@ -72,6 +74,14 @@ public class ContadoresTest {
         this.setCurrent(this.getCurrent()+cantidad);
     }
 
+    public boolean isFallada() {
+        return fallada;
+    }
+
+    public void setFallada(boolean fallada) {
+        this.fallada = fallada;
+    }
+
     @Override
     public String toString() {
         return "ContadoresTest{" +
@@ -81,5 +91,12 @@ public class ContadoresTest {
                 ", numPreguntasPorTemas=" + numPreguntasPorTemas +
                 ", numPreguntasTotal=" + numPreguntasTotal +
                 '}';
+    }
+
+    public void reset(){
+        this.aciertos = 0;
+        this.errores = 0;
+        this.current = 0;
+        this.numPreguntasTotal = 0;
     }
 }

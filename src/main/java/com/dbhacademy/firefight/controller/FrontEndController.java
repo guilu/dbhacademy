@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -60,20 +61,52 @@ public class FrontEndController {
             preguntas = null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
 
         model.addAttribute("contadoresTest", contadoresTest);
-        session.setAttribute("preguntas", preguntas);
+        session.setAttribute("contadoresTest", contadoresTest);
         model.addAttribute("preguntas", preguntas);
+        session.setAttribute("preguntasFalladas", new ArrayList<>());
+        session.setAttribute("preguntas", preguntas);
         model.addAttribute("menu", "test");
         return "test";
     }
 
     @PostMapping("/pasaPregunta")
     public String pasaPregunta(@ModelAttribute ContadoresTest contadoresTest, Model model, HttpSession session) {
+
+        List<Pregunta> preguntasFalladas = (List<Pregunta>) session.getAttribute("preguntasFalladas");
         List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
 
-        LOG.info("paso Pregunta {} de {}", contadoresTest.getCurrent(), preguntas.size());
+        if (contadoresTest.isFallada()) {
+            preguntasFalladas.add(preguntas.get(contadoresTest.getCurrent()-1));
+        }
 
-        model.addAttribute("contadoresTest", contadoresTest);
-        model.addAttribute("preguntas", preguntas);
+        if(contadoresTest.getCurrent() == preguntas.size()) {
+            //es la última y se va a repetir con los fallos.
+            contadoresTest.setNumPreguntasTotal(preguntasFalladas.size());
+            LOG.info("Preguntas falladas:{}", preguntasFalladas.size());
+
+            if (preguntasFalladas.size() == 0)
+                preguntas = null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
+
+            contadoresTest.reset();
+            contadoresTest.setNumPreguntasTotal(preguntasFalladas.size());
+            model.addAttribute("contadoresTest", contadoresTest);
+            model.addAttribute("preguntas", preguntasFalladas);
+
+            session.setAttribute("preguntasFalladas", new ArrayList<>());
+            session.setAttribute("preguntas", preguntasFalladas);
+
+        } else {
+            LOG.info("La Pregunta {} de {}: {} ", contadoresTest.getCurrent(), preguntas.size(), preguntas.get(contadoresTest.getCurrent()-1).getTexto());
+            LOG.info("fallada: {}", contadoresTest.isFallada());
+
+
+            session.setAttribute("preguntasFalladas", preguntasFalladas);
+            model.addAttribute("contadoresTest", contadoresTest);
+            model.addAttribute("preguntas", preguntas);
+
+        }
+
+
         model.addAttribute("menu", "test");
         return "test";
     }

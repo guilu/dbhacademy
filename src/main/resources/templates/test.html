@@ -41,6 +41,7 @@
         <input type="hidden" id="txtNumPreguntasPorTemas" th:field="*{numPreguntasPorTemas}"/>
         <input type="hidden" id="txtNumPreguntasTotal" th:field="*{numPreguntasTotal}"
                th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}"/>
+        <input type="hidden" id="fallada" th:field="*{fallada}"/>
     </form>
 
     <div th:replace="fragments/pregunta :: pregunta(${preguntas?.get(contadoresTest?.current)},${contadoresTest?.current}+1)"></div>
@@ -95,6 +96,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a class="btn btn-secondary text-white" id="btnRepetirFallos" th:if="${(session.get('preguntasFalladas')).size() > 0}">Repetir solo preguntas Falladas</a>
                 <a class="btn btn-primary text-white" id="btnFinalizar" th:href="@{/}">Finalizar</a>
             </div>
         </div>
@@ -154,18 +156,18 @@
                 var currentAciertos = parseInt(aciertos.text()) + 1;
                 aciertos.text(currentAciertos);
                 txtAciertos.val(currentAciertos);
+                $('#fallada').val('false');
             } else {
                 var currentErrores = parseInt(errores.text()) + 1;
                 errores.text(currentErrores);
                 txtErrores.val(currentErrores);
+                $('#fallada').val('true');
             }
             $(this).addClass("disabled").hide();
             $('#btnNext').removeClass('disabled').show();
             var currentCurrent = parseInt(current.text()) + 1;
             current.text(currentCurrent);
             txtCurrent.val(currentCurrent);
-
-
         });
 
         $('#btnNext').on('click', function () {
@@ -176,7 +178,7 @@
             var errores = $('#errores');
             var txtErrores = $('#txtErrores');
 
-            if (current.text() == (numPreguntasTotales)) {2
+            if (current.text() == (numPreguntasTotales)) {
                 var numAciertos = aciertos.text();
                 var numErrores = errores.text();
                 var porcentaje;
@@ -187,12 +189,16 @@
                 }
 
                 $('#txtResultado').text('Has tenido ' + numAciertos + ' aciertos y ' + numErrores + ' errores.');
-                $('#txtPorcentaje').text('Porcentaje de acierto: ' + porcentaje + '%');
+                $('#txtPorcentaje').text('Porcentaje de acierto: ' + porcentaje.toFixed(0) + '%');
                 $('#porcentajeAciertos').css('width', porcentaje + '%');
                 $('#mdlResultado').modal('show');
             } else {
                 $('#formPregunta').submit();
             }
+        });
+
+        $('#btnRepetirFallos').on('click', function(){
+           $('#formPregunta').submit();
         });
 
         $(document).keypress(function (e) {
