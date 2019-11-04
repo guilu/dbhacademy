@@ -45,4 +45,8 @@ public class PreguntaService {
         }
         return preguntas;
     }
+
+    public List<Pregunta> searchInPregunta(String textoABuscar) {
+        return this.preguntaJpaRepository.findByTextoContainingIgnoreCase(textoABuscar);
+    }
 }

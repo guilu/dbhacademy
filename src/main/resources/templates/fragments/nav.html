@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
 
-<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#" th:href="@{/}"><i class="fa fa-fire-alt"></i> Academy</a>
+<nav th:fragment="nav" class="header navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#" th:href="@{/}"><i class="fa fa-fire-alt"></i>  Academy</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
             aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
             <i class="fa fa-clock"></i> <span id="clock"></span>
         </span>
         <form class="form-inline my-2 my-md-0" method="post" th:action="@{/buscar}" th:if="${menu != 'simulacro'}">
-            <input class="form-control" type="text" placeholder="Search" th:name="buscador">
+            <input class="form-control" type="text" placeholder="Search" th:name="textoABuscar">
         </form>
     </div>
 </nav>

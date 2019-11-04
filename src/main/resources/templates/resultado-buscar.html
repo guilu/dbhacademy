@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Resultado de Buscar</title>
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base :: common_header(~{::title},~{::link})">
+    <title>Firefight</title>
+    <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}"/>
 </head>
 <body>
+
+
+<p th:text="${'Agrupaciones: '+resultadoBuscar.getNumAgrupaciones()}">Num agrupaciones</p>
+<p th:text="${'Temas: '+resultadoBuscar.getNumTemas()}">num temas</p>
+<p th:text="${'Preguntas: '+resultadoBuscar.getNumPreguntas()}">num preguntas</p>
+<p th:text="${'Respuestas: '+resultadoBuscar.getNumTemas()}">num temas</p>
 
 </body>
 </html>

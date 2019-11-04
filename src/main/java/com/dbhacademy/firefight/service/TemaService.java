@@ -1,5 +1,6 @@
 package com.dbhacademy.firefight.service;
 
+import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Tema;
 import com.dbhacademy.firefight.repository.TemaJpaRepository;
@@ -83,4 +84,10 @@ public class TemaService {
 		}
         return flattenPreguntas;
     }
+
+    public List<Tema> searchInTema(String cadena){
+        return this.temaJpaRepository.findByTextoContainingIgnoreCase(cadena);
+    }
+
+
 }

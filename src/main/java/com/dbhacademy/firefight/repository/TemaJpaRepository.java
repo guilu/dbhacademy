@@ -19,4 +19,6 @@ public interface TemaJpaRepository extends PagingAndSortingRepository<Tema, Long
 
 	@Query(value = "SELECT DISTINCT T.* FROM BDD_FIREFIGHT.tb02_tema T, BDD_FIREFIGHT.tb03_pregunta P WHERE T.ID = P.TEMA_ID",nativeQuery = true)
 	List<Tema> findTemasConPreguntas();
+
+	List<Tema> findByTextoContainingIgnoreCase(String cadena);
 }

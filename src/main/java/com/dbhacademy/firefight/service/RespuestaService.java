@@ -33,4 +33,8 @@ public class RespuestaService {
     public List<Respuesta> getRespuestasDePregunta(Optional<Pregunta> pregunta) {
     	return this.respuestaJpaRepository.findByPregunta(pregunta);
     }
+
+    public List<Respuesta> searchInRespuesta(String textoABuscar) {
+        return this.respuestaJpaRepository.findByTextoContainingIgnoreCase(textoABuscar);
+    }
 }

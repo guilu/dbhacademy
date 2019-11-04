@@ -14,4 +14,6 @@ public interface PreguntaJpaRepository extends PagingAndSortingRepository<Pregun
     @Override
     List<Pregunta> findAll();
     List<Pregunta> findByTema(Optional<Tema> tema);
+
+    List<Pregunta> findByTextoContainingIgnoreCase(String textoABuscar);
 }

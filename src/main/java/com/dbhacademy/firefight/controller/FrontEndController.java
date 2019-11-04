@@ -1,9 +1,14 @@
 package com.dbhacademy.firefight.controller;
 
 import com.dbhacademy.firefight.model.dto.ContadoresTest;
+import com.dbhacademy.firefight.model.dto.ResultadoBuscar;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
+import com.dbhacademy.firefight.model.entity.Agrupacion;
 import com.dbhacademy.firefight.model.entity.Pregunta;
+import com.dbhacademy.firefight.model.entity.Respuesta;
+import com.dbhacademy.firefight.model.entity.Tema;
 import com.dbhacademy.firefight.service.AgrupacionService;
+import com.dbhacademy.firefight.service.SearchService;
 import com.dbhacademy.firefight.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +27,13 @@ public class FrontEndController {
 
     private AgrupacionService agrupacionService;
     private TestService testService;
+    private SearchService searchService;
 
     @Autowired
-    public FrontEndController(AgrupacionService agrupacionService, TestService testService) {
+    public FrontEndController(AgrupacionService agrupacionService, TestService testService, SearchService searchService) {
         this.agrupacionService = agrupacionService;
         this.testService = testService;
+        this.searchService = searchService;
     }
 
     @RequestMapping("/")
@@ -90,9 +97,37 @@ public class FrontEndController {
     }
 
 
-    @PostMapping("/bsucar")
-    public String buscar(@RequestParam String textoABuscar) {
-        LOG.info("voy a ver done encuentro {}", textoABuscar);
+    @PostMapping("/buscar")
+    public String buscar(@RequestParam String textoABuscar, Model model) {
+        LOG.info("voy a ver si encuentro '{}' en algun campo de la bbdd", textoABuscar);
+
+        ResultadoBuscar resultadoBuscar = new ResultadoBuscar();
+        List<Agrupacion> agrupaciones = this.searchService.searchInAgrupacion(textoABuscar);
+        List<Tema> temas = this.searchService.searchInTema(textoABuscar);
+        List<Pregunta> preguntas = this.searchService.searchInPregunta(textoABuscar);
+        List<Respuesta> respuestas = this.searchService.searchInRespuesta(textoABuscar);
+
+
+        //agrupaciones
+        if ( agrupaciones.size() > 0 ) {
+            resultadoBuscar.setNumAgrupaciones(agrupaciones.size());
+            resultadoBuscar.setAgrupaciones(agrupaciones);
+        }
+        if (temas.size() > 0 ){
+            resultadoBuscar.setNumTemas(temas.size());
+            resultadoBuscar.setTemas(temas);
+        }
+        if (preguntas.size() > 0 ) {
+            resultadoBuscar.setNumPreguntas(preguntas.size());
+            resultadoBuscar.setPreguntas(preguntas);
+        }
+        if (respuestas.size() > 0) {
+            resultadoBuscar.setNumRespuestas(respuestas.size());
+            resultadoBuscar.setRespuestas(respuestas);
+        }
+
+        model.addAttribute("resultadoBuscar", resultadoBuscar);
         return "resultado-buscar";
+
     }
 }

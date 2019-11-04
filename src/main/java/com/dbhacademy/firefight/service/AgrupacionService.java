@@ -27,4 +27,8 @@ public class AgrupacionService {
 		Collections.shuffle(agrupaciones);
 		return agrupaciones;
 	}
+
+	public List<Agrupacion> searchInAgrupacion(String cadena) {
+		return this.agrupacionJpaRepository.findByTextoContainingIgnoreCase(cadena);
+	}
 }

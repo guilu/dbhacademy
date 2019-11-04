@@ -1,7 +1,7 @@
 html,
 body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
-  padding-top: 28px;
+  padding-top: 36px;
   padding-bottom: 30px;
 }
 html {
@@ -137,4 +137,13 @@ html {
   position: fixed;
   bottom: 45px;
   right:30px;
+}
+
+.header {
+  z-index: 32;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: black;
+  background-color: #192531 !important;
 }
