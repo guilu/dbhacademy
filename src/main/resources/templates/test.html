@@ -23,7 +23,7 @@
         <div class="col-sm-6 text-right">
             <span>Realizados: </span>
             <span th:text="${contadoresTest.current}" id="current"
-                  class="ont-weight-bold bg-dark text-white p-1 rounded"> 0 </span> /
+                  class="ont-weight-bold p-1 rounded"> 0 </span> /
             <span th:text="${preguntas?.size()}">Total</span>
         </div>
     </div>
@@ -176,19 +176,19 @@
             var errores = $('#errores');
             var txtErrores = $('#txtErrores');
 
-            if (current.text() == (numPreguntasTotales)) {
+            if (current.text() == (numPreguntasTotales)) {2
                 var numAciertos = aciertos.text();
                 var numErrores = errores.text();
                 var porcentaje;
                 if (numErrores == 0) {
                     porcentaje = 100;
                 } else {
-                    porcentaje = (numAciertos / numErrores) * 100;
+                    porcentaje = (numAciertos / numPreguntasTotales) * 100;
                 }
 
                 $('#txtResultado').text('Has tenido ' + numAciertos + ' aciertos y ' + numErrores + ' errores.');
                 $('#txtPorcentaje').text('Porcentaje de acierto: ' + porcentaje + '%');
-                $('#porcentajeAciertos').css('width', porcentaje);
+                $('#porcentajeAciertos').css('width', porcentaje + '%');
                 $('#mdlResultado').modal('show');
             } else {
                 $('#formPregunta').submit();
