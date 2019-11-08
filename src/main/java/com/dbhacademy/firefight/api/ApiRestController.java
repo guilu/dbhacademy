@@ -81,6 +81,11 @@ public class ApiRestController {
 	public List<Respuesta> getRespuestasDePregunta(@PathVariable("id")Long id) {
 		return this.respuestaService.getRespuestasDePregunta(this.preguntaService.getById(id));
 	}
-	
-	
+
+
+	@RequestMapping("/respuesta/{id}/pregunta")
+	public Pregunta getPreguntaDeRespuesta(@PathVariable("id")Long id) {
+		return this.preguntaService.getPreguntaContainingRespuesta(id);
+	}
+
 }

@@ -64,7 +64,7 @@
                 <div class="col-sm-12">
                     <div class="card my-3" th:each="respuesta,iter : ${respuestas}">
                         <div class="rounded d-flex flex-row justify-content-start">
-                            <div class="p-3 bg-gray text-white-50 respuesta-id" th:text="${respuesta?.id}"></div>
+                            <a class="p-3 bg-gray text-white-50 respuesta-id" th:text="${respuesta?.id}" th:href="@{'/api/v1/respuesta/'+${respuesta.id}+'/pregunta'}" target="_blank"></a>
                             <div class="p-3" th:text="${respuesta?.texto}"></div>
                         </div>
                     </div>

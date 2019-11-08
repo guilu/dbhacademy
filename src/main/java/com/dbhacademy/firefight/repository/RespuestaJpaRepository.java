@@ -14,6 +14,5 @@ public interface RespuestaJpaRepository extends PagingAndSortingRepository<Respu
 
 	List<Respuesta> findAll();
 	List<Respuesta> findByPregunta(Optional<Pregunta> pregunta);
-
     List<Respuesta> findByTextoContainingIgnoreCase(String textoABuscar);
 }

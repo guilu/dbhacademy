@@ -1,8 +1,10 @@
 package com.dbhacademy.firefight.service;
 
 import com.dbhacademy.firefight.model.entity.Pregunta;
+import com.dbhacademy.firefight.model.entity.Respuesta;
 import com.dbhacademy.firefight.model.entity.Tema;
 import com.dbhacademy.firefight.repository.PreguntaJpaRepository;
+import com.dbhacademy.firefight.repository.RespuestaJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.Optional;
 public class PreguntaService {
 
     private PreguntaJpaRepository preguntaJpaRepository;
+    private RespuestaJpaRepository respuestaJpaRepository;
 
     @Autowired
-    public PreguntaService(PreguntaJpaRepository preguntaJpaRepository) {
+    public PreguntaService(PreguntaJpaRepository preguntaJpaRepository, RespuestaJpaRepository respuestaJpaRepository) {
         this.preguntaJpaRepository = preguntaJpaRepository;
+        this.respuestaJpaRepository = respuestaJpaRepository;
     }
     
     public List<Pregunta> getPreguntas(){
@@ -48,5 +52,10 @@ public class PreguntaService {
 
     public List<Pregunta> searchInPregunta(String textoABuscar) {
         return this.preguntaJpaRepository.findByTextoContainingIgnoreCase(textoABuscar);
+    }
+
+    public Pregunta getPreguntaContainingRespuesta(Long idRespuesta) {
+        Optional<Respuesta> respuesta = this.respuestaJpaRepository.findById(idRespuesta);
+        return this.preguntaJpaRepository.findPreguntaByRespuestasContains(respuesta);
     }
 }
