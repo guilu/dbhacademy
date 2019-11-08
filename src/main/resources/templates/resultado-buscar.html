@@ -1,16 +1,120 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/base :: common_header(~{::title},~{::link})">
-    <title>Firefight</title>
+    <title>Firefight - Test</title>
     <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}"/>
 </head>
-<body>
+<body class="bg-light">
+<div th:replace="~{fragments/nav :: nav}"></div>
 
 
-<p th:text="${'Agrupaciones: '+resultadoBuscar.getNumAgrupaciones()}">Num agrupaciones</p>
-<p th:text="${'Temas: '+resultadoBuscar.getNumTemas()}">num temas</p>
-<p th:text="${'Preguntas: '+resultadoBuscar.getNumPreguntas()}">num preguntas</p>
-<p th:text="${'Respuestas: '+resultadoBuscar.getNumTemas()}">num temas</p>
+<main class="container-fluid my-3">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="list-group my-3">
+                <a href="#" th:class="'list-group-item list-group-item-action ' + ${agrupaciones?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'agrupaciones' ? 'active' : ''}" id="btnAgrupaciones">
+                    Agrupaciones <span class="texto-busqueda" th:text="${resultadoBuscar.getNumAgrupaciones()}">999</span>
+                </a>
+                <a href="#" th:class="'list-group-item list-group-item-action ' + ${temas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'temas' ? 'active' : ''}" id="btnTemas">
+                    Temas <span  class="texto-busqueda" th:text="${resultadoBuscar.getNumTemas()}">999</span>
+                </a>
+                <a href="#" th:class="'list-group-item list-group-item-action ' + ${preguntas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'preguntas' ? 'active' : ''}" id="btnPreguntas">
+                    Preguntas <span  class="texto-busqueda" th:text="${resultadoBuscar.getNumPreguntas()}">999</span>
+                </a>
+                <a href="#" th:class="'list-group-item list-group-item-action ' + ${respuestas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'respuestas' ? 'active' : ''}" id="btnRespuestas">
+                    Respuestas <span  class="texto-busqueda" th:text="${resultadoBuscar.getNumRespuestas()}">999</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="row my-3">
+                <div class="col-sm-12">
+                    <span>Resultados de búsqueda</span> <span class="fa fa-chevron-right" aria-hidden="true"></span> <span th:text="${active}" id="active"></span>
+                </div>
+            </div>
+            <div class="row resultado agrupaciones" th:style="'display:' + ${ active == 'agrupaciones' ? 'block' : 'none'}">
+                <div class="col-sm-12">
+                    <div class="card my-3" th:each="agrupacion,iter : ${agrupaciones}">
+                        <div class="card-body" th:text="${agrupacion?.texto}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row resultado temas" th:style="'display:' + ${ active == 'temas' ? 'block' : 'none'}">
+                <div class="col-sm-12">
+                <div class="card my-3" th:each="tema,iter : ${temas}">
+                    <div class="rounded d-flex flex-row">
+                            <a class="tema-id p-3 bg-purple text-white-50" th:text="${tema?.id}" th:href="@{'/api/v1/tema/'+${tema.id}+'/preguntas'}" target="_blank"></a>
+                            <div class="tema-body py-3 mx-3" th:text="${tema?.texto}"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row resultado preguntas" th:style="'display:' + ${ active == 'preguntas' ? 'block' : 'none'}">
+                <div class="col-sm-12">
+                    <div class="card my-3" th:each="pregunta,iter : ${preguntas}">
+                        <div class="rounded d-flex flex-row">
+                            <a class="tema-id p-3 bg-purple text-white-50" th:text="${pregunta?.id}" th:href="@{'/api/v1/pregunta/'+${pregunta.id}+'/respuestas'}" target="_blank"></a>
+                            <div class="tema-body py-3 mx-3" th:text="${pregunta?.texto}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row resultado respuestas" th:style="'display:' + ${ active == 'respuestas' ? 'block' : 'none'}">
+                <div class="col-sm-12">
+                    <div class="card my-3" th:each="respuesta,iter : ${respuestas}">
+                        <div class="rounded d-flex flex-row justify-content-start">
+                            <div class="p-3 bg-gray text-white-50 respuesta-id" th:text="${respuesta?.id}"></div>
+                            <div class="p-3" th:text="${respuesta?.texto}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+</main>
+
+<div th:insert="~{fragments/footer :: copy}"></div>
+<script type="text/javascript">
+    // <![CDATA[
+    jQuery(document).ready(function () {
+
+        $('#btnAgrupaciones').on('click', function(){
+            $('.list-group-item').removeClass('active');
+            $('.resultado').hide()
+            $(this).addClass('active');
+            $('#active').text('agrupaciones');
+            $('.agrupaciones').show();
+        });
+
+        $('#btnTemas').on('click', function(){
+            $('.list-group-item').removeClass('active');
+            $('.resultado').hide()
+            $(this).addClass('active');
+            $('#active').text('temas');
+            $('.temas').show();
+        });
+
+        $('#btnPreguntas').on('click', function(){
+            $('.list-group-item').removeClass('active');
+            $('.resultado').hide()
+            $(this).addClass('active');
+            $('#active').text('preguntas');
+            $('.preguntas').show();
+        });
+
+        $('#btnRespuestas').on('click', function(){
+            $('.list-group-item').removeClass('active');
+            $('.resultado').hide()
+            $(this).addClass('active');
+            $('#active').text('respuestas');
+            $('.respuestas').show();
+        });
+
+
+    });
+    // ]]>
+</script>
 </body>
 </html>

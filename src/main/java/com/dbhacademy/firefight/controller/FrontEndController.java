@@ -140,23 +140,29 @@ public class FrontEndController {
         List<Pregunta> preguntas = this.searchService.searchInPregunta(textoABuscar);
         List<Respuesta> respuestas = this.searchService.searchInRespuesta(textoABuscar);
 
-
-        //agrupaciones
-        if ( agrupaciones.size() > 0 ) {
-            resultadoBuscar.setNumAgrupaciones(agrupaciones.size());
-            resultadoBuscar.setAgrupaciones(agrupaciones);
-        }
-        if (temas.size() > 0 ){
-            resultadoBuscar.setNumTemas(temas.size());
-            resultadoBuscar.setTemas(temas);
+        if (respuestas.size() > 0) {
+            resultadoBuscar.setNumRespuestas(respuestas.size());
+            resultadoBuscar.setRespuestas(respuestas);
+            model.addAttribute("active","respuestas");
+            model.addAttribute("respuestas",respuestas);
         }
         if (preguntas.size() > 0 ) {
             resultadoBuscar.setNumPreguntas(preguntas.size());
             resultadoBuscar.setPreguntas(preguntas);
+            model.addAttribute("active","preguntas");
+            model.addAttribute("preguntas",preguntas);
         }
-        if (respuestas.size() > 0) {
-            resultadoBuscar.setNumRespuestas(respuestas.size());
-            resultadoBuscar.setRespuestas(respuestas);
+        if (temas.size() > 0 ){
+            resultadoBuscar.setNumTemas(temas.size());
+            resultadoBuscar.setTemas(temas);
+            model.addAttribute("active","temas");
+            model.addAttribute("temas",temas);
+        }
+        if ( agrupaciones.size() > 0 ) {
+            resultadoBuscar.setNumAgrupaciones(agrupaciones.size());
+            resultadoBuscar.setAgrupaciones(agrupaciones);
+            model.addAttribute("active","agrupaciones");
+            model.addAttribute("agrupaciones",agrupaciones);
         }
 
         model.addAttribute("resultadoBuscar", resultadoBuscar);
