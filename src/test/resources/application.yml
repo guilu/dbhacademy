@@ -14,7 +14,7 @@ spring:
     show-sql: true
 
 server:
-  port: ${PORT:3001}   # HTTP (Tomcat) port
+  port: ${PORT:9000}   # HTTP (Tomcat) port
   
 logging:
 #  pattern:

@@ -62,10 +62,12 @@ public class TemasSeleccionados {
     public String toString() {
         StringBuffer txtTemas = new StringBuffer();
         txtTemas.append("[");
-        for (int t = 0; t < temas.size(); t++) {
-            txtTemas.append("'" + temas.get(t).getTexto() + "'");
-            if (t < temas.size() - 1) {
-                txtTemas.append(",");
+        if(temas!= null) {
+            for (int t = 0; t < temas.size(); t++) {
+                txtTemas.append("'" + temas.get(t).getTexto() + "'");
+                if (t < temas.size() - 1) {
+                    txtTemas.append(",");
+                }
             }
         }
         return txtTemas.append("]").toString();
