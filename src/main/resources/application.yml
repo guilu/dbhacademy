@@ -2,7 +2,7 @@ spring:
   application:
     name: DBH_ACADEMY
   datasource:
-    url: 'jdbc:mysql://localhost:3306/BDD_FIREFIGHT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+    url: jdbc:mysql://${DB_HOSTNAME:'localhost'}:3306/BDD_FIREFIGHT?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: 'firefight'
     password: 'firefight'
     initialization-mode: never
@@ -16,6 +16,7 @@ spring:
 
 server:
   port: ${PORT:3000}   # HTTP (Tomcat) port
+
   
   
 logging:
