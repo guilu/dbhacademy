@@ -4,6 +4,7 @@ import com.dbhacademy.firefight.model.entity.Examen;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.repository.ExamenRepository;
 import com.dbhacademy.firefight.repository.PreguntaJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +14,10 @@ import java.util.Optional;
 public class ExamenService {
 
     private ExamenRepository examenRepository;
-    private PreguntaJpaRepository preguntaJpaRepository;
 
-    public ExamenService(ExamenRepository examenRepository, PreguntaJpaRepository preguntaJpaRepository) {
+    @Autowired
+    public ExamenService(ExamenRepository examenRepository) {
         this.examenRepository = examenRepository;
-        this.preguntaJpaRepository = preguntaJpaRepository;
     }
 
     public List<Examen> getExamenes(){

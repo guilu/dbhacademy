@@ -2,11 +2,10 @@ package com.dbhacademy.firefight.controller;
 
 
 import com.dbhacademy.firefight.controller.FrontEndController;
-import com.dbhacademy.firefight.service.AgrupacionService;
-import com.dbhacademy.firefight.service.SearchService;
-import com.dbhacademy.firefight.service.TestService;
+import com.dbhacademy.firefight.service.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -39,7 +38,10 @@ public class FrontEndControllerUnitTest {
     private TestService testService;
     @MockBean
     private SearchService searchService;
-
+    @MockBean
+    private ExamenService examenService;
+    @MockBean
+    private PreguntaService preguntaService;
 
     @Test
     public void indexPageLoads() throws Exception {
