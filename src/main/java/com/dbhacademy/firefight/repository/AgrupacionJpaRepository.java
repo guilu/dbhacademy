@@ -9,7 +9,7 @@ import com.dbhacademy.firefight.model.entity.Agrupacion;
 
 @Repository
 public interface AgrupacionJpaRepository extends PagingAndSortingRepository<Agrupacion, Long>{
-	
+
 
 	@Override
 	List<Agrupacion> findAll();

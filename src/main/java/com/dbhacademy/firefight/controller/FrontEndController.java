@@ -3,13 +3,8 @@ package com.dbhacademy.firefight.controller;
 import com.dbhacademy.firefight.model.dto.ContadoresTest;
 import com.dbhacademy.firefight.model.dto.ResultadoBuscar;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
-import com.dbhacademy.firefight.model.entity.Agrupacion;
-import com.dbhacademy.firefight.model.entity.Pregunta;
-import com.dbhacademy.firefight.model.entity.Respuesta;
-import com.dbhacademy.firefight.model.entity.Tema;
-import com.dbhacademy.firefight.service.AgrupacionService;
-import com.dbhacademy.firefight.service.SearchService;
-import com.dbhacademy.firefight.service.TestService;
+import com.dbhacademy.firefight.model.entity.*;
+import com.dbhacademy.firefight.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class FrontEndController {
@@ -29,18 +25,23 @@ public class FrontEndController {
     private AgrupacionService agrupacionService;
     private TestService testService;
     private SearchService searchService;
+    private ExamenService examenService;
+    private PreguntaService preguntaService;
 
     @Autowired
-    public FrontEndController(AgrupacionService agrupacionService, TestService testService, SearchService searchService) {
+    public FrontEndController(AgrupacionService agrupacionService, TestService testService, SearchService searchService, ExamenService examenService, PreguntaService preguntaService) {
         this.agrupacionService = agrupacionService;
         this.testService = testService;
         this.searchService = searchService;
+        this.examenService = examenService;
+        this.preguntaService = preguntaService;
     }
 
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("agrupaciones", this.agrupacionService.getAgrupaciones());
         model.addAttribute("temasSeleccionados", new TemasSeleccionados());
+        model.addAttribute("examenes", this.examenService.getExamenes());
         model.addAttribute("menu", "test");
         return "index";
     }
@@ -126,6 +127,25 @@ public class FrontEndController {
         session.setAttribute("preguntas", preguntas);
         model.addAttribute("preguntas", preguntas);
         model.addAttribute("menu", "simulacro");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+        return "simulacro";
+    }
+
+    @RequestMapping("/examen/{id}")
+    public String examen(@PathVariable int id, Model model, HttpSession session) {
+
+        //Es lo mismo que un simulacro pero las preguntas salen del examen
+        //Se cogen preguntas del examen y las respuestas se barajan.
+        Optional<Examen> examen = this.examenService.getExamen((long) id);
+
+        List<Pregunta> preguntas =  this.preguntaService.scramble(this.preguntaService.getPreguntasDeExamen(examen));
+        LOG.info("Preguntas totales para el examen: {}", examen.isPresent() ? examen.get().getTexto() : "vacio");
+        LOG.info("Preguntas sacadas: {}", preguntas.size());
+
+        session.setAttribute("preguntas", preguntas);
+        model.addAttribute("preguntas", preguntas);
+        model.addAttribute("menu", "examenes");
+        model.addAttribute("examenes", this.examenService.getExamenes());
         return "simulacro";
     }
 

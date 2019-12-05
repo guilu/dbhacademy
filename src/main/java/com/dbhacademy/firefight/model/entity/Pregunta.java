@@ -25,6 +25,11 @@ public class Pregunta extends BaseEntity {
 	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Respuesta> respuestas;
 
+	@ManyToOne
+	@JoinColumn(name = "EXAMEN_ID", referencedColumnName = "ID")
+	@JsonIgnore
+	private Examen examen;
+
 	public Tema getTema() {
 		return tema;
 	}
@@ -49,4 +54,11 @@ public class Pregunta extends BaseEntity {
 		this.respuestas = respuestas;
 	}
 
+	public Examen getExamen() {
+		return examen;
+	}
+
+	public void setExamen(Examen examen) {
+		this.examen = examen;
+	}
 }

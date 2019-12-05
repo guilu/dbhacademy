@@ -1,8 +1,10 @@
 package com.dbhacademy.firefight.service;
 
+import com.dbhacademy.firefight.model.entity.Examen;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Respuesta;
 import com.dbhacademy.firefight.model.entity.Tema;
+import com.dbhacademy.firefight.repository.ExamenRepository;
 import com.dbhacademy.firefight.repository.PreguntaJpaRepository;
 import com.dbhacademy.firefight.repository.RespuestaJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,4 +60,8 @@ public class PreguntaService {
         Optional<Respuesta> respuesta = this.respuestaJpaRepository.findById(idRespuesta);
         return this.preguntaJpaRepository.findPreguntaByRespuestasContains(respuesta);
     }
+
+   public List<Pregunta> getPreguntasDeExamen(Optional<Examen> examen){
+        return this.preguntaJpaRepository.findByExamen(examen);
+   }
 }

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}"/>
 </head>
 <body class="bg-light">
-<div th:replace="~{fragments/nav :: nav}"></div>
+<div th:replace="~{fragments/nav :: nav}" th:width="examenes=${examenes}"></div>
 
 <main role="main" class="container-fluid">
 
@@ -67,7 +67,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal" tabindex="-1" role="dialog" id="mdlTest">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

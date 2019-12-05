@@ -8,13 +8,14 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!--/*@thymesVar id="menu" type="String"*/-->
     <div class="collapse navbar-collapse" id="navbarsExample05">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" th:classappend="${menu == 'test' ? 'active' : ''}">
                 <a class="nav-link" href="../prgunta-contadoresTest.html" th:href="@{/}">Test <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown" th:classappend="${menu == 'simulacro' ? 'active' : ''}">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSimulacro" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Simulacro
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -23,11 +24,21 @@
                     <a class="dropdown-item" th:href="@{/simulacro/100}">100 preguntas</a>
                 </div>
             </li>
+            <li class="nav-item dropdown" th:classappend="${menu == 'examenes' ? 'active' : ''}">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownExamen" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Exámenes Oficiales
+                </a>
+                <!--/*@thymesVar id="examenes" type="ArrayList<com.dbhacademy.firefight.model.entity.Examen>"*/-->
+                <!--/*@thymesVar id="examen" type="com.dbhacademy.firefight.model.entity.Examen"*/-->
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:each="examen,iter : ${examenes}"  th:href="@{'/examen/' + ${examen.id}}" th:text="${examen.texto}">Nombre examen</a>
+                </div>
+            </li>
         </ul>
         <span class="navbar-text px-3 rounded bg-purple " id="menu-reloj" style="display: none">
             <i class="fa fa-clock"></i> <span id="clock"></span>
         </span>
-        <form class="form-inline my-2 my-md-0" method="post" th:action="@{/buscar}" th:if="${menu != 'simulacro'}">
+        <form class="form-inline my-2 my-md-0" method="post" th:action="@{/buscar}" th:if="${menu != 'simulacro' and menu != 'examenes'}">
             <input class="form-control" type="text" placeholder="Buscar..." th:name="textoABuscar">
         </form>
     </div>

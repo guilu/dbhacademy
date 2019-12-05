@@ -1593,3 +1593,40 @@ Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (
 Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (1230,'Sustituir lo peligroso por lo que entrañe poco o ningún peligro',false,308);
 Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (1231,'Adoptar medidas que antepongan la protección individual a la colectiva',true,308);
 Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (1232,'Planificar la prevención',false,308);
+
+Insert into BDD_FIREFIGHT.TB05_EXAMEN(ID,TEXTO) values (1,'Examen Consorcio Valencia 2019');
+Insert into BDD_FIREFIGHT.TB05_EXAMEN(ID,TEXTO) values (2,'Examen Cabos Ayuntamiento de Valencia 2019');
+
+Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,TEXTO,TEMA_ID,EXAMEN_ID) values (3000,'Pues una pregunta de prueba del examen Consorcio de Valencia',6,1);
+Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,TEXTO,TEMA_ID,EXAMEN_ID) values (3001,'Pues una pregunta de prueba del examen Consorcio de Valencia',6,1);
+Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,TEXTO,TEMA_ID,EXAMEN_ID) values (3002,'Pues una pregunta de prueba del examen Consorcio de Valencia',6,1);
+
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13001,'Evaluar los riesgos que no se puedan evitar',false,3000);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13002,'Sustituir lo peligroso por lo que entrañe poco o ningún peligro',false,3000);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13003,'Adoptar medidas que antepongan la protección individual a la colectiva',true,3000);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13004,'Planificar la prevención',false,3000);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13005,'Evaluar los riesgos que no se puedan evitar',false,3001);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13006,'Sustituir lo peligroso por lo que entrañe poco o ningún peligro',false,3001);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13007,'Adoptar medidas que antepongan la protección individual a la colectiva',true,3001);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13008,'Planificar la prevención',false,3002);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13009,'Evaluar los riesgos que no se puedan evitar',false,3002);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13010,'Sustituir lo peligroso por lo que entrañe poco o ningún peligro',false,3002);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13011,'Adoptar medidas que antepongan la protección individual a la colectiva',true,3002);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13012,'Planificar la prevención',false,3002);
+
+Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,TEXTO,TEMA_ID,EXAMEN_ID) values (3003,'pregunta 1 de prueba del examen Cabos Ayuntamiento de Valencia 2019',6,2);
+Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,TEXTO,TEMA_ID,EXAMEN_ID) values (3004,'pregunta 2 de prueba del examen Cabos Ayuntamiento de Valencia 2019',6,2);
+Insert into BDD_FIREFIGHT.TB03_PREGUNTA(ID,TEXTO,TEMA_ID,EXAMEN_ID) values (3005,'pregunta 3 de prueba del examen Cabos Ayuntamiento de Valencia 2019',6,2);
+
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13013,'Evaluar los riesgos que no se puedan evitar',false,3003);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13014,'Sustituir lo peligroso por lo que entrañe poco o ningún peligro',false,3003);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13015,'Adoptar medidas que antepongan la protección individual a la colectiva',true,3003);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13016,'Planificar la prevención',false,3003);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13017,'Evaluar los riesgos que no se puedan evitar',false,3004);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13018,'Sustituir lo peligroso por lo que entrañe poco o ningún peligro',false,3004);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13019,'Adoptar medidas que antepongan la protección individual a la colectiva',true,3004);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13020,'Planificar la prevención',false,3004);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13021,'Evaluar los riesgos que no se puedan evitar',false,3005);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13022,'Sustituir lo peligroso por lo que entrañe poco o ningún peligro',false,3005);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13023,'Adoptar medidas que antepongan la protección individual a la colectiva',true,3005);
+Insert into BDD_FIREFIGHT.TB04_RESPUESTA(ID,TEXTO,CORRECTA,PREGUNTA_ID) values (13024,'Planificar la prevención',false,3005);

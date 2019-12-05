@@ -1,5 +1,6 @@
 package com.dbhacademy.firefight.repository;
 
+import com.dbhacademy.firefight.model.entity.Examen;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Respuesta;
 import com.dbhacademy.firefight.model.entity.Tema;
@@ -15,8 +16,11 @@ public interface PreguntaJpaRepository extends PagingAndSortingRepository<Pregun
     @Override
     List<Pregunta> findAll();
     List<Pregunta> findByTema(Optional<Tema> tema);
+    List<Pregunta> findByExamen(Optional<Examen> examen);
 
     List<Pregunta> findByTextoContainingIgnoreCase(String textoABuscar);
 
     Pregunta findPreguntaByRespuestasContains(Optional<Respuesta> respuesta);
+
+
 }
