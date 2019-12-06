@@ -81,9 +81,12 @@ public class FrontEndController {
         }
 
         if(contadoresTest.getCurrent() == preguntas.size()) {
+
             //es la última y se va a repetir con los fallos.
-            contadoresTest.setNumPreguntasTotal(preguntasFalladas.size());
             LOG.info("Preguntas falladas:{}", preguntasFalladas.size());
+
+            //desordenar las preguntas falladas
+            preguntasFalladas = this.preguntaService.scramble(preguntasFalladas);
 
             if (preguntasFalladas.size() == 0)
                 preguntas = null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
@@ -138,7 +141,10 @@ public class FrontEndController {
         //Se cogen preguntas del examen y las respuestas se barajan.
         Optional<Examen> examen = this.examenService.getExamen((long) id);
 
-        List<Pregunta> preguntas =  this.preguntaService.scramble(this.preguntaService.getPreguntasDeExamen(examen));
+        List<Pregunta> preguntas =  this.preguntaService.getPreguntasDeExamen(examen);
+
+        //En los examenes las preguntas no se desordenan pero si las respuestas
+        preguntas = this.preguntaService.scrambleRespuestas(preguntas);
         LOG.info("Preguntas totales para el examen: {}", examen.isPresent() ? examen.get().getTexto() : "vacio");
         LOG.info("Preguntas sacadas: {}", preguntas.size());
 

@@ -10,6 +10,7 @@ import com.dbhacademy.firefight.repository.RespuestaJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,7 @@ public class PreguntaService {
     }
 
     /**
-     *  random tambien de las respuestas de las preguntas....
+     *  random de las preguntas y tambien de las respuestas de las preguntas....
      *
      * @param preguntas
      * @return
@@ -47,6 +48,18 @@ public class PreguntaService {
     public List<Pregunta> scramble(List<Pregunta> preguntas){
         Collections.shuffle(preguntas);
         for( Pregunta pregunta : preguntas){
+            Collections.shuffle(pregunta.getRespuestas());
+        }
+        return preguntas;
+    }
+
+    /**
+     *  random solo de las respuestas
+     * @param preguntas
+     * @return
+     */
+    public List<Pregunta> scrambleRespuestas(List<Pregunta> preguntas) {
+        for(Pregunta pregunta : preguntas) {
             Collections.shuffle(pregunta.getRespuestas());
         }
         return preguntas;
