@@ -217,9 +217,11 @@ html {
   background-color: #193652;
   color: white;
 }
-
-.contacts {
+.logo-test, .logo-simulacro, .logo-examenes {
+  margin-bottom: .3em;
 }
+
+
 .contacts li {
  display: inline;
 }
