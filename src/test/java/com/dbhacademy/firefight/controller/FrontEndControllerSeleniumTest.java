@@ -52,7 +52,7 @@ public class FrontEndControllerSeleniumTest {
     @Test
     public void homeTieneLinks() {
         homePage.assertThat()
-                .hasActuatorLink("Generar Test")
+                .hasActuatorLink("Elige Temas")
                 .hasNoActuatorLink("shutdown");
     }
 

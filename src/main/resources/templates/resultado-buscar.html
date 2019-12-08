@@ -45,7 +45,7 @@
                 <div class="card my-3" th:each="tema,iter : ${temas}">
                     <div class="rounded d-flex flex-row">
                             <a class="tema-id p-3 bg-purple text-white-50" th:text="${tema?.id}" th:href="@{'/api/v1/tema/'+${tema.id}+'/preguntas'}" target="_blank"></a>
-                            <div class="tema-body py-3 mx-3" th:text="${tema?.texto}"></div>
+                            <div class="tema-body py-3 mx-3" th:text="${tema?.texto}" th:data-tema-id="${tema.id}"></div>
                     </div>
                 </div>
                 </div>
@@ -54,8 +54,8 @@
                 <div class="col-sm-12">
                     <div class="card my-3" th:each="pregunta,iter : ${preguntas}">
                         <div class="rounded d-flex flex-row">
-                            <a class="tema-id p-3 bg-purple text-white-50" th:text="${pregunta?.id}" th:href="@{'/api/v1/pregunta/'+${pregunta.id}+'/respuestas'}" target="_blank"></a>
-                            <div class="tema-body py-3 mx-3" th:text="${pregunta?.texto}"></div>
+                            <a class="tema-id p-3 bg-blue text-white-50" th:text="${pregunta?.id}" th:href="@{'/api/v1/pregunta/'+${pregunta.id}+'/respuestas'}" target="_blank"></a>
+                            <div class="pregunta-body py-3 mx-3" th:text="${pregunta?.texto}" th:data-pregunta-id="${pregunta.id}"></div>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                     <div class="card my-3" th:each="respuesta,iter : ${respuestas}">
                         <div class="rounded d-flex flex-row justify-content-start">
                             <a class="p-3 bg-gray text-white-50 respuesta-id" th:text="${respuesta?.id}" th:href="@{'/api/v1/respuesta/'+${respuesta.id}+'/pregunta'}" target="_blank"></a>
-                            <div class="p-3" th:text="${respuesta?.texto}"></div>
+                            <div class="respuesta-body p-3" th:text="${respuesta?.texto}" th:data-respuesta-id="${respuesta.id}"></div>
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
 
         $('#btnAgrupaciones').on('click', function(){
             $('.list-group-item').removeClass('active');
-            $('.resultado').hide()
+            $('.resultado').hide();
             $(this).addClass('active');
             $('#active').text('agrupaciones');
             $('.agrupaciones').show();
@@ -90,7 +90,7 @@
 
         $('#btnTemas').on('click', function(){
             $('.list-group-item').removeClass('active');
-            $('.resultado').hide()
+            $('.resultado').hide();
             $(this).addClass('active');
             $('#active').text('temas');
             $('.temas').show();
@@ -98,7 +98,7 @@
 
         $('#btnPreguntas').on('click', function(){
             $('.list-group-item').removeClass('active');
-            $('.resultado').hide()
+            $('.resultado').hide();
             $(this).addClass('active');
             $('#active').text('preguntas');
             $('.preguntas').show();
@@ -106,14 +106,25 @@
 
         $('#btnRespuestas').on('click', function(){
             $('.list-group-item').removeClass('active');
-            $('.resultado').hide()
+            $('.resultado').hide();
             $(this).addClass('active');
             $('#active').text('respuestas');
             $('.respuestas').show();
         });
 
-
-    });
+        $('.tema-body').on('click', function(e){
+            e.preventDefault();
+            var id= this.getAttribute('data-tema-id');
+        });
+        $('.pregunta-body').on('click', function(e){
+            e.preventDefault();
+            var id= this.getAttribute('data-pregunta-id');
+        });
+        $('.respuesta-body').on('click', function(e){
+            e.preventDefault();
+            var id= this.getAttribute('data-respuesta-id');
+        });
+    })
     // ]]>
 </script>
 </body>
