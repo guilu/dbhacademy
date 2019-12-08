@@ -9,26 +9,19 @@
 
 
 
-<main role="main" class="container-fluid">
+<article class="container-fluid">
 
     <div class="row bg-white box-shadow p-2">
-        <div class="col-sm-6">
-            <span>Aciertos</span>
-            <span th:text="${contadoresTest.aciertos}" id="aciertos"
-                  class="font-weight-bold bg-dark text-white p-1 rounded"> 0 </span>
-            <span>Errores</span>
-            <span th:text="${contadoresTest.errores}" id="errores"
-                  class="ont-weight-bold bg-red text-white p-1 rounded"> 0 </span>
+        <div class="col-lg-6 col-md-6 col-sm-6" style="width: 50%">
+            <span>Aciertos</span> <span th:text="${contadoresTest.aciertos}" id="aciertos" class="font-weight-bold bg-dark p-1 text-white rounded"> 0 </span>
+            <span>Errores</span> <span th:text="${contadoresTest.errores}" id="errores" class="ont-weight-bold bg-red p-1 text-white rounded"> 0 </span>
         </div>
-        <div class="col-sm-6 text-right">
-            <span>Realizados: </span>
-            <span th:text="${contadoresTest.current}" id="current"
-                  class="ont-weight-bold p-1 rounded"> 0 </span> /
-            <span th:text="${preguntas?.size()}">Total</span>
+        <div class="col-lg-6 col-md-6 col-sm-6 text-right" style="width:50%">
+            <span>Realizados: </span><span th:text="${contadoresTest.current}" id="current" class="font-weight-bold p-1 rounded"> 0 </span> / <span th:text="${preguntas?.size()}">Total</span>
         </div>
     </div>
 
-</main>
+</article>
 
 
 <main role="main" class="container-fluid">
@@ -39,8 +32,7 @@
         <input type="hidden" id="txtErrores" th:field="*{errores}"/>
         <input type="hidden" id="txtCurrent" th:field="*{current}"/>
         <input type="hidden" id="txtNumPreguntasPorTemas" th:field="*{numPreguntasPorTemas}"/>
-        <input type="hidden" id="txtNumPreguntasTotal" th:field="*{numPreguntasTotal}"
-               th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}"/>
+        <input type="hidden" id="txtNumPreguntasTotal" th:field="*{numPreguntasTotal}" th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}"/>
         <input type="hidden" id="fallada" th:field="*{fallada}"/>
     </form>
 
