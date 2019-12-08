@@ -33,8 +33,8 @@
         </div>
         <div class="my-3 mb-3 bg-white text-muted rounded shadow-sm">
             <div class="form-group row p-3">
-                <label class="col-sm-4 col-form-label" for="cbNumPreguntas" >Selecciona el número de preguntas por tema:</label>
-                <div class="col-sm-4">
+                <label class="col-lg-4 col-sm-3 col-form-label" for="cbNumPreguntas" >Selecciona el número de preguntas por tema:</label>
+                <div class="col-lg-4 col-sm-3">
                     <select class="form-control form-lg" id="cbNumPreguntas" th:field="*{numPreguntasPorTema}">
                         <option value="999">Todas</option>
                         <option value="10">10 preguntas</option>
@@ -42,8 +42,8 @@
                         <option value="30">30 preguntas</option>
                     </select>
                 </div>
-                <div class="col-sm-4">
-                    <a class="btn btn-primary btn-md float-right" href="#" role="button" id="btnGenerarTest">Generar Test</a>
+                <div class="col-lg-4 col-sm-6 generar-test">
+                    <a class="btn btn-primary btn-md float-right btn-block" href="#" role="button" id="btnGenerarTest">Generar Test</a>
                 </div>
             </div>
         </div>
