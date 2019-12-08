@@ -3,6 +3,8 @@ body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
   padding-top: 36px;
   padding-bottom: 30px;
+  font-family: 'Ubuntu',Arial, Helvetica, sans-serif;
+  color:#193652;
 }
 html {
   position: relative;
@@ -118,10 +120,6 @@ html {
   color:green;
 }
 
-.agrupacion {
-  min-width:300px;
-}
-
 .marco-solucion {
   min-width: 24px;
   margin-top: -2px;
@@ -169,4 +167,59 @@ html {
 
 .bg-gray {
   background-color: #6c757d !important;
+}
+
+
+.card-img-top {
+  background-color: #ebfaff;
+}
+
+/** esto está puesto a pelo para que quepan 6 bloques 100 / 6 = 16,6% **/
+.card-bloque {
+  width: 16%;
+}
+/** en el movil sm min-width:100% **/
+@media (max-width: 576px) {
+  .card-bloque {
+    min-width: 100%;
+  }
+}
+
+.card-bloque .card-bloque-header {
+  padding-top:5px;
+  padding-left:5px;
+}
+.card-bloque .card-bloque-header h6 {
+  font-size:0.9em;
+}
+.card-bloque .card-bloque-body {
+  font-size:.9em;
+}
+
+.fa-fire-alt {
+  background: -webkit-linear-gradient(#ffc107, #ff0000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.caja-test {
+  background-color: #193652;
+  color:white;
+}
+.caja-simulacro {
+  background-color: #193652;
+  color:white;
+}
+.caja-examenes {
+  background-color: #193652;
+  color: white;
+}
+
+.contacts {
+}
+.contacts li {
+ display: inline;
+}
+.contacts li a {
+  color:#193652;
 }

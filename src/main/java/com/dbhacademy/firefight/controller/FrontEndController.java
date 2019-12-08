@@ -42,8 +42,17 @@ public class FrontEndController {
         model.addAttribute("agrupaciones", this.agrupacionService.getAgrupaciones());
         model.addAttribute("temasSeleccionados", new TemasSeleccionados());
         model.addAttribute("examenes", this.examenService.getExamenes());
-        model.addAttribute("menu", "test");
+        model.addAttribute("menu", "index");
         return "index";
+    }
+
+    @RequestMapping("/temas-seleccion")
+    public String temasSeleccion(Model model) {
+        model.addAttribute("agrupaciones", this.agrupacionService.getAgrupaciones());
+        model.addAttribute("temasSeleccionados", new TemasSeleccionados());
+        model.addAttribute("examenes", this.examenService.getExamenes());
+        model.addAttribute("menu", "index");
+        return "temas-seleccion";
     }
 
     @PostMapping("/test")
@@ -66,7 +75,7 @@ public class FrontEndController {
         model.addAttribute("preguntas", preguntas);
         session.setAttribute("preguntasFalladas", new ArrayList<>());
         session.setAttribute("preguntas", preguntas);
-        model.addAttribute("menu", "test");
+        model.addAttribute("menu", "temas-seleccion");
         return "test";
     }
 

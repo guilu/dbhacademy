@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <nav th:fragment="nav" class="header navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#" th:href="@{/}"><i class="fa fa-fire-alt"></i>  Academy</a>
+    <a class="navbar-brand" href="#" th:href="@{/}"><i class="fa fa-fire-alt"></i>  DGZ Fire Academy</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
             aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarsExample05">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" th:classappend="${menu == 'test' ? 'active' : ''}">
-                <a class="nav-link" href="../prgunta-contadoresTest.html" th:href="@{/}">Test <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../temas-seleccion.html" th:href="@{/temas-seleccion}">Temas <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown" th:classappend="${menu == 'simulacro' ? 'active' : ''}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSimulacro" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,7 +26,7 @@
             </li>
             <li class="nav-item dropdown" th:classappend="${menu == 'examenes' ? 'active' : ''}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownExamen" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Exámenes Oficiales
+                    Exámenes
                 </a>
                 <!--/*@thymesVar id="examenes" type="ArrayList<com.dbhacademy.firefight.model.entity.Examen>"*/-->
                 <!--/*@thymesVar id="examen" type="com.dbhacademy.firefight.model.entity.Examen"*/-->
