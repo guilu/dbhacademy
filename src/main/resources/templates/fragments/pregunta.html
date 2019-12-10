@@ -45,7 +45,7 @@
             </div>
             <div class="media-body pb-3 border-gray" th:classappend="${ iter.last ? '' : 'border-bottom'}">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" th:name="${'respuestas_of_' + pregunta.id}" id="defaultCheck1" th:id="${'r_'+respuesta.id}">
+                    <input class="form-check-input" type="radio" th:name="${'respuestas_of_' + pregunta.id}" id="defaultCheck1" th:id="${'r_'+respuesta.id}" style="margin-top:9px">
                     <label class="form-check-label" th:for="${'r_'+respuesta.id}" th:text="${respuesta.texto}">Texto de la respuesta 1:  pain itself, who seeks after it and wants to have it, simply because it is pain..."
                         What is Lorem Ipsum? Lorem Ipsum is </label>
                 </div>

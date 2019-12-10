@@ -162,9 +162,9 @@
             var currentCurrent = parseInt(current.text()) + 1;
             current.text(currentCurrent);
             txtCurrent.val(currentCurrent);
-            
-            if (current.text() == (numPreguntasTotales)) {
-            	$('#btnNext').text("Finalizar!");
+
+            if (current.text() === (numPreguntasTotales)) {
+                $('#btnNext').text("Finalizar!");
             }
         });
 
@@ -176,7 +176,7 @@
             var errores = $('#errores');
             var txtErrores = $('#txtErrores');
 
-            if (current.text() == (numPreguntasTotales)) {
+            if (current.text() === (numPreguntasTotales)) {
             	//es la última pregunta.... 
             	//si no hay preguntas falladas y esta se ha fallado ya que dejar repertirla
             	if(  $('#btnRepetirFallos').hasClass('d-none') && ($('#fallada').val() == 'true') ) {
@@ -188,10 +188,17 @@
                 var numAciertos = aciertos.text();
                 var numErrores = errores.text();
                 var porcentaje;
-                if (numErrores == 0) {
+                if (numErrores === 0) {
                     porcentaje = 100;
                 } else {
                     porcentaje = (numAciertos / numPreguntasTotales) * 100;
+                }
+
+                //si no hay preguntas falladas y esta se ha fallado ya que dejar repertirla
+                if(  $('#btnRepetirFallos').hasClass('d-none') && ($('#fallada').val() == 'true') ) {
+                    $('#btnRepetirFallos').addClass('d-block');
+                } else {
+                    $('#btnRepetirFallos').removeClass('d-block');
                 }
 
                 $('#txtResultado').text('Has tenido ' + numAciertos + ' aciertos y ' + numErrores + ' errores.');
