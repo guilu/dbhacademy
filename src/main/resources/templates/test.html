@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-secondary text-white" id="btnRepetirFallos" th:if="${(session.get('preguntasFalladas')).size() > 0}">Repetir solo preguntas Falladas</a>
+                <a class="btn btn-secondary text-white" id="btnRepetirFallos" th:classAppend="${(session.get('preguntasFalladas')).size() > 0 ? 'd-block' : 'd-none' }">Repetir solo preguntas Falladas</a>
                 <a class="btn btn-primary text-white" id="btnFinalizar" th:href="@{/}">Finalizar</a>
             </div>
         </div>
@@ -141,7 +141,9 @@
                         errorMarcado = true;
                     }
                 }
+                //muestra la solución
                 solucion.show();
+
             });
 
             if (okMarcado && !errorMarcado) {
@@ -160,6 +162,10 @@
             var currentCurrent = parseInt(current.text()) + 1;
             current.text(currentCurrent);
             txtCurrent.val(currentCurrent);
+            
+            if (current.text() == (numPreguntasTotales)) {
+            	$('#btnNext').text("Finalizar!");
+            }
         });
 
         $('#btnNext').on('click', function () {
@@ -171,6 +177,14 @@
             var txtErrores = $('#txtErrores');
 
             if (current.text() == (numPreguntasTotales)) {
+            	//es la última pregunta.... 
+            	//si no hay preguntas falladas y esta se ha fallado ya que dejar repertirla
+            	if(  $('#btnRepetirFallos').hasClass('d-none') && ($('#fallada').val() == 'true') ) {
+            		$('#btnRepetirFallos').addClass('d-block');
+            	} else {
+            		$('#btnRepetirFallos').removeClass('d-block');
+            	}
+            	
                 var numAciertos = aciertos.text();
                 var numErrores = errores.text();
                 var porcentaje;
