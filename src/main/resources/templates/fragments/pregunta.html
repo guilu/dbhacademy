@@ -28,14 +28,14 @@
 <div th:fragment="pregunta(pregunta,current)">
 
     <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow pregunta-header">
-        <div class="mr-3 rounded text-white d-flex justify-content-center align-items-center w48h84 border-white" th:text="${current}">9999</div>
+        <div class="mr-3 rounded smalltext-white d-flex justify-content-center align-items-center w48h84 border-white" th:text="${current}">9999</div>
         <div class="lh-100">
 
             <h6 class="mb-0 text-white lh-150" th:text="${pregunta?.texto}">Texto de la Pregunta</h6>
         </div>
     </div>
 
-    <div class="my-3 p-3 bg-white rounded box-shadow pregunta-body">
+    <div class="my-3 p-3 bg-white small rounded box-shadow pregunta-body">
         <div class="media text-muted pt-3" th:each="respuesta,iter : ${pregunta?.getRespuestas()}">
 
             <div class="marco-solucion">
