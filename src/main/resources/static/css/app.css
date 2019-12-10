@@ -2,7 +2,7 @@ html,
 body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
   padding-top: 40px; /* height of the navbar */
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   font-family: 'Ubuntu',Arial, Helvetica, sans-serif;
   color:#193652;
 }
@@ -234,7 +234,10 @@ html {
   color: white;
 }
 .logo-test, .logo-simulacro, .logo-examenes {
-  margin-bottom: .3em;
+  /* margin-bottom: .3em; */
+}
+.card h1, .card h1, .card h1 {
+  margin-bottom: 0.15rem;
 }
 
 
@@ -248,4 +251,8 @@ html {
 }
 .contacts li {
  display: inline;
+}
+
+.card-body {
+  padding:1.1rem !important;
 }
