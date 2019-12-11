@@ -1,5 +1,11 @@
 package com.dbhacademy.firefight.selenium.support;
 
+import static org.springframework.core.annotation.AnnotationUtils.findAnnotation;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -11,12 +17,6 @@ import org.springframework.core.Ordered;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static org.springframework.core.annotation.AnnotationUtils.findAnnotation;
-
 
 public class SeleniumTestExecutionListener extends AbstractTestExecutionListener {
 
@@ -26,7 +26,8 @@ public class SeleniumTestExecutionListener extends AbstractTestExecutionListener
         return Ordered.HIGHEST_PRECEDENCE;
     }
 
-    @Override
+    @SuppressWarnings({ "resource", "deprecation" })
+	@Override
     public void prepareTestInstance(TestContext testContext) throws Exception {
         if (webDriver != null) {
             return;

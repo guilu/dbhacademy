@@ -1,15 +1,18 @@
 package com.dbhacademy.firefight.service;
 
-import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
-import com.dbhacademy.firefight.model.entity.Pregunta;
-import com.dbhacademy.firefight.model.entity.Tema;
-import com.dbhacademy.firefight.repository.TemaJpaRepository;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import com.dbhacademy.firefight.model.entity.Pregunta;
+import com.dbhacademy.firefight.model.entity.Tema;
+import com.dbhacademy.firefight.repository.TemaJpaRepository;
 
 @Service
 public class TemaService {

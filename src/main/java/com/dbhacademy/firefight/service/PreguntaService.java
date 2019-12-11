@@ -1,19 +1,18 @@
 package com.dbhacademy.firefight.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.dbhacademy.firefight.model.entity.Examen;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Respuesta;
 import com.dbhacademy.firefight.model.entity.Tema;
-import com.dbhacademy.firefight.repository.ExamenRepository;
 import com.dbhacademy.firefight.repository.PreguntaJpaRepository;
 import com.dbhacademy.firefight.repository.RespuestaJpaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PreguntaService {

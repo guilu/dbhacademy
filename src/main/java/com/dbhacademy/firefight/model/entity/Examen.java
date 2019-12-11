@@ -9,8 +9,10 @@ import java.util.List;
 @Entity
 @Table(name = "TB05_EXAMEN", schema = "BDD_FIREFIGHT")
 public class Examen extends BaseEntity {
+	
+	private static final long serialVersionUID = 1L;
 
-    @Size(max = 1024)
+	@Size(max = 1024)
     @Column
     private String texto;
 

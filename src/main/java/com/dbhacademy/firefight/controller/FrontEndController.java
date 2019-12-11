@@ -82,8 +82,10 @@ public class FrontEndController {
     @PostMapping("/pasaPregunta")
     public String pasaPregunta(@ModelAttribute ContadoresTest contadoresTest, Model model, HttpSession session) {
 
-        List<Pregunta> preguntasFalladas = (List<Pregunta>) session.getAttribute("preguntasFalladas");
-        List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
+        @SuppressWarnings("unchecked")
+		List<Pregunta> preguntasFalladas = (List<Pregunta>) session.getAttribute("preguntasFalladas");
+        @SuppressWarnings("unchecked")
+		List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
 
         if (contadoresTest.isFallada()) {
             preguntasFalladas.add(preguntas.get(contadoresTest.getCurrent()-1));

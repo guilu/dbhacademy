@@ -1,16 +1,12 @@
 package com.dbhacademy.firefight.model.dto;
 
-import com.dbhacademy.firefight.model.entity.Tema;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dbhacademy.firefight.model.entity.Tema;
+
 
 public class TemasSeleccionados {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TemasSeleccionados.class);
 
     private List<Tema> temas;
     private int numPreguntasPorTema;

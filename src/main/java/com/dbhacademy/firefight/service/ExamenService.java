@@ -1,14 +1,13 @@
 package com.dbhacademy.firefight.service;
 
-import com.dbhacademy.firefight.model.entity.Examen;
-import com.dbhacademy.firefight.model.entity.Pregunta;
-import com.dbhacademy.firefight.repository.ExamenRepository;
-import com.dbhacademy.firefight.repository.PreguntaJpaRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.dbhacademy.firefight.model.entity.Examen;
+import com.dbhacademy.firefight.repository.ExamenRepository;
 
 @Service
 public class ExamenService {

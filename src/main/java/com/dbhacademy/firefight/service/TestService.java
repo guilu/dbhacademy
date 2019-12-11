@@ -1,21 +1,18 @@
 package com.dbhacademy.firefight.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.dbhacademy.firefight.model.dto.ContadoresTest;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
 import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Tema;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class TestService {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TestService.class);
 
     private TemaService temaService;
 

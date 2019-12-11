@@ -24,7 +24,7 @@
                 <div class="card-bloque-body">
                     <div th:each="tema,iter2 : ${agrupacion.temas}" class="form-check">
                         <input class="form-check-input card-bloque-check" type="checkbox" th:id="${ 'chk_' + tema.id}" id="chk_id1" th:field="*{temas[__${tema.id - 1}__]}" th:value="${tema.id}">
-                        <label class="form-check-label card-bloque-label small" th:for="${'chk_' + tema.id}" for="chk_id1">
+                        <label class="form-check-label card-bloque-label" th:for="${'chk_' + tema.id}" for="chk_id1">
                             <span th:text="${tema.texto}" th:class="${tema.hasPreguntas() ? 'font-weight-bold' : ''}">Texto de tema 1</span>
                         </label>
                     </div>
