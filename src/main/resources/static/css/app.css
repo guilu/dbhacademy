@@ -203,17 +203,6 @@ html {
   }
 }
 
-.card-bloque .card-bloque-header {
-  padding-top:5px;
-  padding-left:5px;
-}
-.card-bloque .card-bloque-header h6 {
-  font-size:0.9em;
-}
-.card-bloque .card-bloque-body {
-  font-size:.75em;
-}
-
 .fa-fire-alt {
   background: -webkit-linear-gradient(#ffc107, #ff0000);
   -webkit-background-clip: text;
@@ -255,12 +244,40 @@ html {
 .card-body {
   padding:1.1rem !important;
 }
+.card-bloque .card-bloque-header {
+  padding-top:5px;
+  padding-left:5px;
+}
+.card-bloque .card-bloque-header h6 {
+  font-size:0.9em;
+}
+.card-bloque .card-bloque-body {
+  font-size:.75em;
+}
+
+.card-bloque .card-bloque-body .form-check-input
+{
+  font-size: 10px;
+}
+.card-bloque .card-bloque-body .form-check-label {
+  font-size:12px;
+  color: #193652;
+}
 
 .form-check-label {
   line-height: 20px;
-  font-size:14px;
+}
+.respuesta-body-check .form-check-input {
+	margin-top:10px;
+}
+.respuesta-body-check .form-check-label {
+  font-size: 16px;
+  color:#193652 !important;
 }
 
-.prgunta-body-check .form-check-input {
-	margin-top:10px;
+.pregunta {
+
+}
+.one-question {
+  margin-bottom: 15px;
 }
