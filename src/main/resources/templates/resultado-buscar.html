@@ -12,16 +12,18 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="list-group my-3">
-                <a href="#" th:class="'list-group-item list-group-item-action ' + ${agrupaciones?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'agrupaciones' ? 'active' : ''}" id="btnAgrupaciones">
+                <a href="#" th:class="'list-group-item list-group-item-action  d-flex justify-content-between align-items-center ' + ${agrupaciones?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'agrupaciones' ? 'active' : ''}" id="btnAgrupaciones">
                     Agrupaciones <span class="texto-busqueda" th:text="${resultadoBuscar.getNumAgrupaciones()}">999</span>
                 </a>
-                <a href="#" th:class="'list-group-item list-group-item-action ' + ${temas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'temas' ? 'active' : ''}" id="btnTemas">
+                <a href="#" th:class="'list-group-item list-group-item-action  d-flex justify-content-between align-items-center ' + ${temas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'temas' ? 'active' : ''}" id="btnTemas">
                     Temas <span  class="texto-busqueda" th:text="${resultadoBuscar.getNumTemas()}">999</span>
                 </a>
-                <a href="#" th:class="'list-group-item list-group-item-action ' + ${preguntas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'preguntas' ? 'active' : ''}" id="btnPreguntas">
-                    Preguntas <span  class="texto-busqueda" th:text="${resultadoBuscar.getNumPreguntas()}">999</span>
+                <a href="#" th:class="'list-group-item list-group-item-action d-flex justify-content-between align-items-center ' + ${preguntas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'preguntas' ? 'active' : ''}" id="btnPreguntas">
+                    Preguntas
+                    <span class="badge badge-danger badge-pill text-right" id="btnGenerarTestConPreguntasEncontradas" th:if="${preguntas?.size() > 0}">Generar Test</span>
+                    <span  class="texto-busqueda" th:text="${resultadoBuscar.getNumPreguntas()}">999</span>
                 </a>
-                <a href="#" th:class="'list-group-item list-group-item-action ' + ${respuestas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'respuestas' ? 'active' : ''}" id="btnRespuestas">
+                <a href="#" th:class="'list-group-item list-group-item-action  d-flex justify-content-between align-items-center ' + ${respuestas?.size() > 0 ? '' : 'disabled'}" th:classappend="${ active == 'respuestas' ? 'active' : ''}" id="btnRespuestas">
                     Respuestas <span  class="texto-busqueda" th:text="${resultadoBuscar.getNumRespuestas()}">999</span>
                 </a>
             </div>
