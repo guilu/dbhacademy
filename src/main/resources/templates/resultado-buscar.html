@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es">
 <head th:replace="fragments/base :: common_header(~{::title},~{::link})">
     <title>Firefight - Test</title>
     <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}"/>
@@ -54,6 +54,14 @@
             </div>
             <div class="row resultado preguntas" th:style="'display:' + ${ active == 'preguntas' ? 'block' : 'none'}">
                 <div class="col-sm-12">
+                    <form id="formPregunta" th:action="@{/pasaPregunta}" th:object="${contadoresTest}" method="post" th:if="${ preguntas.size() > 0}">
+                        <input type="hidden" id="txtAciertos" th:field="*{aciertos}"/>
+                        <input type="hidden" id="txtErrores" th:field="*{errores}"/>
+                        <input type="hidden" id="txtCurrent" th:field="*{current}"/>
+                        <input type="hidden" id="txtNumPreguntasPorTemas" th:field="*{numPreguntasPorTemas}"/>
+                        <input type="hidden" id="txtNumPreguntasTotal" th:field="*{numPreguntasTotal}" th:value="${not #lists.isEmpty(preguntas) ? preguntas.size() : '0'}"/>
+                        <input type="hidden" id="fallada" th:field="*{fallada}"/>
+                    </form>
                     <div class="card my-3" th:each="pregunta,iter : ${preguntas}">
                         <div class="rounded d-flex flex-row">
                             <a class="tema-id p-3 bg-blue text-white-50" th:text="${pregunta?.id}" th:href="@{'/api/v1/pregunta/'+${pregunta.id}+'/respuestas'}" target="_blank"></a>
@@ -116,15 +124,19 @@
 
         $('.tema-body').on('click', function(e){
             e.preventDefault();
-            var id= this.getAttribute('data-tema-id');
+            //var id= this.getAttribute('data-tema-id');
         });
         $('.pregunta-body').on('click', function(e){
             e.preventDefault();
-            var id= this.getAttribute('data-pregunta-id');
+            //var id= this.getAttribute('data-pregunta-id');
         });
         $('.respuesta-body').on('click', function(e){
             e.preventDefault();
-            var id= this.getAttribute('data-respuesta-id');
+            //var id= this.getAttribute('data-respuesta-id');
+        });
+        $('#btnGenerarTestConPreguntasEncontradas').on('click', function (e) {
+           e.preventDefault();
+           $('#formPregunta').submit();
         });
     })
     // ]]>

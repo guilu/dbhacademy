@@ -71,10 +71,12 @@ public class FrontEndController {
             preguntas = null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
 
         model.addAttribute("contadoresTest", contadoresTest);
-        session.setAttribute("contadoresTest", contadoresTest);
         model.addAttribute("preguntas", preguntas);
+
         session.setAttribute("preguntasFalladas", new ArrayList<>());
+        session.setAttribute("contadoresTest", contadoresTest);
         session.setAttribute("preguntas", preguntas);
+
         model.addAttribute("menu", "temas-seleccion");
         return "test";
     }
@@ -99,8 +101,11 @@ public class FrontEndController {
             //desordenar las preguntas falladas
             preguntasFalladas = this.preguntaService.scramble(preguntasFalladas);
 
-            if (preguntasFalladas.size() == 0)
+            /*
+            if (preguntasFalladas.size() == 0) {
                 preguntas = null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
+            }
+            */
 
             contadoresTest.reset();
             contadoresTest.setNumPreguntasTotal(preguntasFalladas.size());
@@ -168,7 +173,7 @@ public class FrontEndController {
 
 
     @PostMapping("/buscar")
-    public String buscar(@RequestParam String textoABuscar, Model model) {
+    public String buscar(@RequestParam String textoABuscar, Model model, HttpSession session) {
         LOG.info("voy a ver si encuentro '{}' en algun campo de la bbdd", textoABuscar);
 
         ResultadoBuscar resultadoBuscar = new ResultadoBuscar();
@@ -188,6 +193,17 @@ public class FrontEndController {
             resultadoBuscar.setPreguntas(preguntas);
             model.addAttribute("active","preguntas");
             model.addAttribute("preguntas",preguntas);
+
+            //preparar las variables para el test
+            ContadoresTest contadoresTest = new ContadoresTest();
+            contadoresTest.setNumPreguntasTotal(preguntas.size());
+
+            model.addAttribute("contadoresTest", contadoresTest);
+            model.addAttribute("preguntas", preguntas);
+
+            session.setAttribute("contadoresTest", contadoresTest);
+            session.setAttribute("preguntasFalladas", new ArrayList<>());
+            session.setAttribute("preguntas", preguntas);
         }
         if (temas.size() > 0 ){
             resultadoBuscar.setNumTemas(temas.size());
