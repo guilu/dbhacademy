@@ -1,9 +1,9 @@
 package com.dbhacademy.firefight.model.dto;
 
+import com.dbhacademy.firefight.model.entity.Tema;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.dbhacademy.firefight.model.entity.Tema;
 
 
 public class TemasSeleccionados {
@@ -35,10 +35,17 @@ public class TemasSeleccionados {
         this.numPreguntasPorTema = numPreguntasPorTema;
     }
 
+    public int getTotalPreguntas() {
+        int suma = 0;
+        for (Tema tema : this.temas) {
+            suma += tema.getNumPreguntas();
+        }
+        return suma;
+    }
+
     /**
      * Deja la lista de temas solo con los no vacios
      * pues el bindindg del formulario con la lista de temas deja los que no se hayan seleccionado como null.
-     *
      */
     public void setTemasNotNull() {
         List<Tema> noVacios = new ArrayList<>();
@@ -53,14 +60,13 @@ public class TemasSeleccionados {
 
     /**
      * Sobrecarga del toString
-     *
      */
     public String toString() {
-        StringBuffer txtTemas = new StringBuffer();
+        StringBuilder txtTemas = new StringBuilder();
         txtTemas.append("[");
-        if(temas!= null) {
+        if (temas != null) {
             for (int t = 0; t < temas.size(); t++) {
-                txtTemas.append("'" + temas.get(t).getTexto() + "'");
+                txtTemas.append("'").append(temas.get(t).getTexto()).append("'");
                 if (t < temas.size() - 1) {
                     txtTemas.append(",");
                 }

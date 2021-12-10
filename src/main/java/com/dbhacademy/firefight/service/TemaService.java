@@ -19,8 +19,8 @@ public class TemaService {
 
     private static final Logger LOG = LoggerFactory.getLogger(TemaService.class);
 
-    private TemaJpaRepository temaJpaRepository;
-    private PreguntaService preguntaService;
+    private final TemaJpaRepository temaJpaRepository;
+    private final PreguntaService preguntaService;
 
     @Autowired
     public TemaService(TemaJpaRepository temaJpaRepository, PreguntaService preguntaService) {

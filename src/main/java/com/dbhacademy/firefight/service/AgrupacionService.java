@@ -12,7 +12,7 @@ import com.dbhacademy.firefight.repository.AgrupacionJpaRepository;
 @Service
 public class AgrupacionService {
 	
-	private AgrupacionJpaRepository agrupacionJpaRepository;
+	private final AgrupacionJpaRepository agrupacionJpaRepository;
 
 	@Autowired
 	public AgrupacionService(AgrupacionJpaRepository agrupacionJpaRepository) {

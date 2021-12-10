@@ -14,7 +14,7 @@ import com.dbhacademy.firefight.repository.RespuestaJpaRepository;
 @Service
 public class RespuestaService {
 
-    private RespuestaJpaRepository respuestaJpaRepository;
+    private final RespuestaJpaRepository respuestaJpaRepository;
 
     @Autowired
     public RespuestaService(RespuestaJpaRepository respuestaJpaRepository) {

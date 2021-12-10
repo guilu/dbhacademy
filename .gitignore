@@ -31,3 +31,6 @@ build/
 .vscode/
 .mvn/
 /src/test/resources/screenshots/
+
+#### no quiero sql files
+*.sql

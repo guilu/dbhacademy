@@ -14,7 +14,7 @@ import com.dbhacademy.firefight.model.entity.Tema;
 @Service
 public class TestService {
 
-    private TemaService temaService;
+    private final TemaService temaService;
 
     @Autowired
     public TestService(TemaService temaService) {

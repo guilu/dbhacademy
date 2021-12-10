@@ -12,7 +12,7 @@ import com.dbhacademy.firefight.repository.ExamenRepository;
 @Service
 public class ExamenService {
 
-    private ExamenRepository examenRepository;
+    private final ExamenRepository examenRepository;
 
     @Autowired
     public ExamenService(ExamenRepository examenRepository) {

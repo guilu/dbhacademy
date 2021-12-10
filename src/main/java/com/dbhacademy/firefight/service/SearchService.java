@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class SearchService {
 
-    private AgrupacionService agrupacionService;
-    private TemaService temaService;
-    private PreguntaService preguntaService;
-    private RespuestaService respuestaService;
+    private final AgrupacionService agrupacionService;
+    private final TemaService temaService;
+    private final PreguntaService preguntaService;
+    private final RespuestaService respuestaService;
 
     @Autowired
     public SearchService(AgrupacionService agrupacionService, TemaService temaService, PreguntaService preguntaService, RespuestaService respuestaService) {

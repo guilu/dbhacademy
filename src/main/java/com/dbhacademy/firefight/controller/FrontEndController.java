@@ -5,6 +5,7 @@ import com.dbhacademy.firefight.model.dto.ResultadoBuscar;
 import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
 import com.dbhacademy.firefight.model.entity.*;
 import com.dbhacademy.firefight.service.*;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class FrontEndController {
 
     private static final Logger LOG = LoggerFactory.getLogger(FrontEndController.class);
 
-    private AgrupacionService agrupacionService;
-    private TestService testService;
-    private SearchService searchService;
-    private ExamenService examenService;
-    private PreguntaService preguntaService;
+    private final AgrupacionService agrupacionService;
+    private final TestService testService;
+    private final SearchService searchService;
+    private final ExamenService examenService;
+    private final PreguntaService preguntaService;
 
     @Autowired
     public FrontEndController(AgrupacionService agrupacionService, TestService testService, SearchService searchService, ExamenService examenService, PreguntaService preguntaService) {
@@ -58,15 +59,15 @@ public class FrontEndController {
     @PostMapping("/test")
     public String generarTest(@ModelAttribute TemasSeleccionados temasSeleccionados, Model model, HttpSession session) {
         temasSeleccionados.setTemasNotNull();
-        LOG.info("recibo del form {} tema(s): {}", temasSeleccionados.getTemas().size(), temasSeleccionados.toString());
-        LOG.info("{} preguntas por tema.", temasSeleccionados.getNumPreguntasPorTema());
+
+        LOG.info("recibo del form {} tema(s): {}", temasSeleccionados.getTemas().size(), temasSeleccionados);
+        LOG.info("total de preguntas {}", temasSeleccionados.getTotalPreguntas());
 
         List<Pregunta> preguntas = testService.generaPreguntas(temasSeleccionados);
         ContadoresTest contadoresTest = new ContadoresTest();
         contadoresTest.setNumPreguntasPorTemas(temasSeleccionados.getNumPreguntasPorTema());
         contadoresTest.setNumPreguntasTotal(preguntas.size());
 
-        LOG.info("Preguntas generadas:{}", preguntas.size());
         if (preguntas.size() == 0)
             preguntas = null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
 
@@ -78,34 +79,43 @@ public class FrontEndController {
         session.setAttribute("preguntas", preguntas);
 
         model.addAttribute("menu", "temas-seleccion");
+
+        LOG.info("La primera pregunta {} de {}: {} ", contadoresTest.getCurrent(), preguntas.size(), preguntas.get(contadoresTest.getCurrent()).getTexto());
         return "test";
     }
 
     @PostMapping("/pasaPregunta")
     public String pasaPregunta(@ModelAttribute ContadoresTest contadoresTest, Model model, HttpSession session) {
 
+
         @SuppressWarnings("unchecked")
-		List<Pregunta> preguntasFalladas = (List<Pregunta>) session.getAttribute("preguntasFalladas");
+        List<Pregunta> preguntasFalladas = (List<Pregunta>) session.getAttribute("preguntasFalladas");
         @SuppressWarnings("unchecked")
-		List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
+        List<Pregunta> preguntas = (List<Pregunta>) session.getAttribute("preguntas");
+
+        LOG.info("el array de preguntas de la sesion es de {}",preguntas.size());
+        LOG.info("la primera tiene {} respuestas",preguntas.get(0).getRespuestas().size());
+
+
+        //puede que no sea la primera pregun  ta si no es un test sino un test que viene de una busqueda:
+        int preguntaAnterior = (contadoresTest.getCurrent() == 0) ? 0 : contadoresTest.getCurrent() - 1;
+
+        LOG.info("fallada: {}", contadoresTest.isFallada());
+
 
         if (contadoresTest.isFallada()) {
-            preguntasFalladas.add(preguntas.get(contadoresTest.getCurrent()-1));
+            preguntasFalladas.add(preguntas.get(preguntaAnterior));
         }
 
-        if(contadoresTest.getCurrent() == preguntas.size()) {
+
+
+        if (contadoresTest.getCurrent() == preguntas.size()) {
 
             //es la última y se va a repetir con los fallos.
             LOG.info("Preguntas falladas:{}", preguntasFalladas.size());
 
             //desordenar las preguntas falladas
             preguntasFalladas = this.preguntaService.scramble(preguntasFalladas);
-
-            /*
-            if (preguntasFalladas.size() == 0) {
-                preguntas = null; //me lo cargo para que no sea un array vacio sobre el que thymeleaf no puede iterar
-            }
-            */
 
             contadoresTest.reset();
             contadoresTest.setNumPreguntasTotal(preguntasFalladas.size());
@@ -116,16 +126,11 @@ public class FrontEndController {
             session.setAttribute("preguntas", preguntasFalladas);
 
         } else {
-            LOG.info("La Pregunta {} de {}: {} ", contadoresTest.getCurrent(), preguntas.size(), preguntas.get(contadoresTest.getCurrent()-1).getTexto());
-            LOG.info("fallada: {}", contadoresTest.isFallada());
-
-
+            LOG.info("La Pregunta {} de {}: {} ", contadoresTest.getCurrent(), preguntas.size(), preguntas.get(contadoresTest.getCurrent()).getTexto());
             session.setAttribute("preguntasFalladas", preguntasFalladas);
             model.addAttribute("contadoresTest", contadoresTest);
             model.addAttribute("preguntas", preguntas);
-
         }
-
 
         model.addAttribute("menu", "test");
         return "test";
@@ -157,7 +162,7 @@ public class FrontEndController {
         //Se cogen preguntas del examen y las respuestas se barajan.
         Optional<Examen> examen = this.examenService.getExamen((long) id);
 
-        List<Pregunta> preguntas =  this.preguntaService.getPreguntasDeExamen(examen);
+        List<Pregunta> preguntas = this.preguntaService.getPreguntasDeExamen(examen);
 
         //En los examenes las preguntas no se desordenan pero si las respuestas
         preguntas = this.preguntaService.scrambleRespuestas(preguntas);
@@ -185,19 +190,27 @@ public class FrontEndController {
         if (respuestas.size() > 0) {
             resultadoBuscar.setNumRespuestas(respuestas.size());
             resultadoBuscar.setRespuestas(respuestas);
-            model.addAttribute("active","respuestas");
-            model.addAttribute("respuestas",respuestas);
+            model.addAttribute("active", "respuestas");
+            model.addAttribute("respuestas", respuestas);
         }
-        if (preguntas.size() > 0 ) {
+
+        if (preguntas.size() > 0) {
             resultadoBuscar.setNumPreguntas(preguntas.size());
             resultadoBuscar.setPreguntas(preguntas);
-            model.addAttribute("active","preguntas");
-            model.addAttribute("preguntas",preguntas);
 
             //preparar las variables para el test
             ContadoresTest contadoresTest = new ContadoresTest();
             contadoresTest.setNumPreguntasTotal(preguntas.size());
+            contadoresTest.setNumPreguntasPorTemas(0);
 
+            //Hibernate.initialize carga todas las respuestas de las preguntas que están en lazy y ahora mismo solo
+            //están las preguntas
+            for(Pregunta preg: preguntas) {
+                Hibernate.initialize(preg.getRespuestas());
+            }
+
+
+            model.addAttribute("active", "preguntas");
             model.addAttribute("contadoresTest", contadoresTest);
             model.addAttribute("preguntas", preguntas);
 
@@ -205,17 +218,19 @@ public class FrontEndController {
             session.setAttribute("preguntasFalladas", new ArrayList<>());
             session.setAttribute("preguntas", preguntas);
         }
-        if (temas.size() > 0 ){
+
+        if (temas.size() > 0) {
             resultadoBuscar.setNumTemas(temas.size());
             resultadoBuscar.setTemas(temas);
-            model.addAttribute("active","temas");
-            model.addAttribute("temas",temas);
+            model.addAttribute("active", "temas");
+            model.addAttribute("temas", temas);
         }
-        if ( agrupaciones.size() > 0 ) {
+
+        if (agrupaciones.size() > 0) {
             resultadoBuscar.setNumAgrupaciones(agrupaciones.size());
             resultadoBuscar.setAgrupaciones(agrupaciones);
-            model.addAttribute("active","agrupaciones");
-            model.addAttribute("agrupaciones",agrupaciones);
+            model.addAttribute("active", "agrupaciones");
+            model.addAttribute("agrupaciones", agrupaciones);
         }
 
         model.addAttribute("resultadoBuscar", resultadoBuscar);

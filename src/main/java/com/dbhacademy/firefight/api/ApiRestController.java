@@ -24,10 +24,10 @@ import com.dbhacademy.firefight.service.TemaService;
 @RequestMapping(value = "api/v1",produces = MediaType.APPLICATION_JSON_VALUE)
 public class ApiRestController {
 
-	private AgrupacionService agrupacionService;
-	private TemaService temaService;
-	private PreguntaService preguntaService;
-	private RespuestaService respuestaService;
+	private final AgrupacionService agrupacionService;
+	private final TemaService temaService;
+	private final PreguntaService preguntaService;
+	private final RespuestaService respuestaService;
 	
 	
 	@Autowired
@@ -82,6 +82,10 @@ public class ApiRestController {
 		return this.respuestaService.getRespuestasDePregunta(this.preguntaService.getById(id));
 	}
 
+	@RequestMapping("/pregunta/buscar")
+	public List<Pregunta> getPreguntasBySearchTopic(@RequestParam("text") String text) {
+		return this.preguntaService.searchInPregunta(text);
+	}
 
 	@RequestMapping("/respuesta/{id}/pregunta")
 	public Pregunta getPreguntaDeRespuesta(@PathVariable("id")Long id) {

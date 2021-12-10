@@ -29,8 +29,8 @@
                     Exámenes
                 </a>
                 <!--/*@thymesVar id="examenes" type="ArrayList<com.dbhacademy.firefight.model.entity.Examen>"*/-->
-                <!--/*@thymesVar id="examen" type="com.dbhacademy.firefight.model.entity.Examen"*/-->
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <!--/*@thymesVar id="examen" type="com.dbhacademy.firefight.model.entity.Examen"*/-->
                     <a class="dropdown-item" th:each="examen,iter : ${examenes}"  th:href="@{'/examen/' + ${examen.id}}" th:text="${examen.texto}">Nombre examen</a>
                 </div>
             </li>
@@ -39,7 +39,9 @@
             <i class="fa fa-clock"></i> <span id="clock"></span>
         </span>
         <form class="form-inline my-2 my-md-0" method="post" th:action="@{/buscar}" th:if="${menu != 'simulacro' and menu != 'examenes'}">
-            <input class="form-control" type="text" placeholder="Buscar..." th:name="textoABuscar">
+            <label>
+                <input class="form-control" type="text" placeholder="Buscar..." th:name="textoABuscar" />
+            </label>
         </form>
     </div>
 </nav>

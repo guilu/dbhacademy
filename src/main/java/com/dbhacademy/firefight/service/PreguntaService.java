@@ -1,5 +1,6 @@
 package com.dbhacademy.firefight.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +18,8 @@ import com.dbhacademy.firefight.repository.RespuestaJpaRepository;
 @Service
 public class PreguntaService {
 
-    private PreguntaJpaRepository preguntaJpaRepository;
-    private RespuestaJpaRepository respuestaJpaRepository;
+    private final PreguntaJpaRepository preguntaJpaRepository;
+    private final RespuestaJpaRepository respuestaJpaRepository;
 
     @Autowired
     public PreguntaService(PreguntaJpaRepository preguntaJpaRepository, RespuestaJpaRepository respuestaJpaRepository) {

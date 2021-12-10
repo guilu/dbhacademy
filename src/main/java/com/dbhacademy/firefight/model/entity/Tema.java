@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "TB02_TEMA", schema = "BDD_FIREFIGHT")
 public class Tema extends BaseEntity {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Tema.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Tema.class);
 
     private static final long serialVersionUID = 2L;
 
@@ -53,8 +53,11 @@ public class Tema extends BaseEntity {
         this.preguntas = preguntas;
     }
 
+    public int getNumPreguntas() {
+        return (this.preguntas != null) ? this.preguntas.size() : 0;
+    }
+
     /**
-     *
      * @param numPreguntas
      * @return
      */
@@ -62,7 +65,7 @@ public class Tema extends BaseEntity {
         //si tiene mas preguntas que numPreguntas
         //desordeno y saco numPreguntas
         if (this.preguntas.size() > numPreguntas) {
-        	LOG.info("Del tema {} hay {} preguntas y voy a intentar sacar {} más ",this.texto,this.getPreguntas().size(),numPreguntas);
+            LOG.info("Del tema {} hay {} preguntas y voy a intentar sacar {} más ", this.texto, this.getPreguntas().size(), numPreguntas);
             Collections.shuffle(this.getPreguntas());
             return this.getPreguntas().subList(0, numPreguntas);
         } else {
@@ -72,10 +75,9 @@ public class Tema extends BaseEntity {
     }
 
     /**
-     *
      * @return
      */
-    public boolean hasPreguntas(){
+    public boolean hasPreguntas() {
         return (this.getPreguntas().size() > 0);
     }
 }
