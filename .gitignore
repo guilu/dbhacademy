@@ -34,3 +34,6 @@ build/
 
 #### no quiero sql files
 *.sql
+
+.env
+.DS_Store
