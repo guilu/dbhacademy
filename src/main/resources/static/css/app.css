@@ -222,6 +222,11 @@ html {
 .logo-test, .logo-simulacro, .logo-examenes {
   /* margin-bottom: .3em; */
 }
+
+.card {
+  min-height: 510px;
+}
+
 .card h1, .card h1, .card h1 {
   margin-bottom: 0.15rem;
 }

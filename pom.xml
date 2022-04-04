@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>com.dbhacademy</groupId>
 	<artifactId>firefight</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.1.0</version>
 	<name>firefight</name>
 	<description>Firefight academy</description>
 
