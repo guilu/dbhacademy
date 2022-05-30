@@ -38,6 +38,9 @@ public class FrontEndControllerUnitTest {
     private ExamenService examenService;
     @MockBean
     private PreguntaService preguntaService;
+    @MockBean
+    private TemaService temaService;
+
 
     @Test
     public void indexPageLoads() throws Exception {
