@@ -23,6 +23,15 @@ public class Respuesta extends BaseEntity {
     @Column
     private boolean correcta;
 
+    public Respuesta(){
+
+    }
+    public Respuesta(String texto, boolean correcta, Pregunta pregunta){
+        this.texto = texto;
+        this.correcta = correcta;
+        this.pregunta = pregunta;
+    }
+    
     public Pregunta getPregunta() {
         return pregunta;
     }

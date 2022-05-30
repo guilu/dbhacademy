@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.dbhacademy.firefight.model.dto.NuevaPreguntaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,5 +77,9 @@ public class PreguntaService {
 
    public List<Pregunta> getPreguntasDeExamen(Optional<Examen> examen){
         return this.preguntaJpaRepository.findByExamen(examen);
+   }
+
+   public Pregunta savePregunta(Pregunta pregunta){
+        return this.preguntaJpaRepository.save(pregunta);
    }
 }

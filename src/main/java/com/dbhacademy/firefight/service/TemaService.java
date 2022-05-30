@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import com.dbhacademy.firefight.model.dto.NuevaPreguntaDTO;
+import com.dbhacademy.firefight.model.dto.NuevoTemaDTO;
+import com.dbhacademy.firefight.model.entity.Agrupacion;
+import com.dbhacademy.firefight.model.entity.Respuesta;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import com.dbhacademy.firefight.model.entity.Pregunta;
 import com.dbhacademy.firefight.model.entity.Tema;
 import com.dbhacademy.firefight.repository.TemaJpaRepository;
 
+import javax.swing.text.html.Option;
+
 @Service
 public class TemaService {
 
@@ -22,10 +28,14 @@ public class TemaService {
     private final TemaJpaRepository temaJpaRepository;
     private final PreguntaService preguntaService;
 
+    private final AgrupacionService agrupacionService;
+
+
     @Autowired
-    public TemaService(TemaJpaRepository temaJpaRepository, PreguntaService preguntaService) {
+    public TemaService(TemaJpaRepository temaJpaRepository, PreguntaService preguntaService, AgrupacionService agrupacionService) {
         this.temaJpaRepository = temaJpaRepository;
         this.preguntaService = preguntaService;
+        this.agrupacionService = agrupacionService;
     }
 
     public List<Tema> getTemas() {
@@ -92,5 +102,46 @@ public class TemaService {
         return this.temaJpaRepository.findByTextoContainingIgnoreCase(cadena);
     }
 
+
+    public Pregunta saveNewPreguntaDTOenTema(NuevaPreguntaDTO preguntaDTO){
+        //de la pregunta DTO se obtiene el id  del tema al que se le pone la pregunta
+        // y sus 4 respuestas
+        Optional<Tema> tema = temaJpaRepository.findById((long) preguntaDTO.getIdTema());
+
+        Pregunta pregunta = new Pregunta(preguntaDTO.getTextoPregunta());
+        List<Respuesta> respuestas = new ArrayList<>();
+        Respuesta respuesta1 = new Respuesta(preguntaDTO.getTexto1Respuesta(), preguntaDTO.getRespuestaCorrecta() == 1, pregunta);
+        respuestas.add(respuesta1);
+        Respuesta respuesta2 = new Respuesta(preguntaDTO.getTexto2Respuesta(), preguntaDTO.getRespuestaCorrecta() == 2, pregunta);
+        respuestas.add(respuesta2);
+        Respuesta respuesta3 = new Respuesta(preguntaDTO.getTexto3Respuesta(), preguntaDTO.getRespuestaCorrecta() == 3, pregunta);
+        respuestas.add(respuesta3);
+        Respuesta respuesta4 = new Respuesta(preguntaDTO.getTexto4Respuesta(), preguntaDTO.getRespuestaCorrecta() == 4, pregunta);
+        respuestas.add(respuesta4);
+
+        pregunta.setTema(tema.get());
+        pregunta.setRespuestas(respuestas);
+
+
+        return preguntaService.savePregunta(pregunta);
+
+    }
+
+
+    public List<Tema> getTemasAlphabetically() {
+        return temaJpaRepository.findAllByOrderByTextoAsc();
+    }
+
+    public Tema saveNewTemaDTO(NuevoTemaDTO temaDTO){
+
+        Tema tema = new Tema(temaDTO.getTextoTema());
+        Agrupacion agrupacion = null;
+        if (temaDTO.getIdAgrupacion() > 0L){
+            agrupacion = agrupacionService.getById(temaDTO.getIdAgrupacion());
+        }
+        tema.setAgrupacion(agrupacion);
+
+        return temaJpaRepository.save(tema);
+    }
 
 }

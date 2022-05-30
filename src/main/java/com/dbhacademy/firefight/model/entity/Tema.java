@@ -29,6 +29,12 @@ public class Tema extends BaseEntity {
     @OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Pregunta> preguntas;
 
+    public Tema(){}
+
+    public Tema(String texto) {
+        this.texto = texto;
+    }
+
     public Agrupacion getAgrupacion() {
         return agrupacion;
     }

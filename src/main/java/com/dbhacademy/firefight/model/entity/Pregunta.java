@@ -30,6 +30,16 @@ public class Pregunta extends BaseEntity {
 	@JsonIgnore
 	private Examen examen;
 
+
+	public Pregunta(){
+
+	}
+
+	public Pregunta(String texto) {
+		this.texto = texto;
+	}
+
+
 	public Tema getTema() {
 		return tema;
 	}

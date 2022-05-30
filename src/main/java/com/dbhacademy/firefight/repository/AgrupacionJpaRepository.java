@@ -14,4 +14,8 @@ public interface AgrupacionJpaRepository extends PagingAndSortingRepository<Agru
 	@Override
 	List<Agrupacion> findAll();
 	List<Agrupacion> findByTextoContainingIgnoreCase(String cadena);
+
+	List<Agrupacion> findAllByOrderByTexto();
+
+
 }

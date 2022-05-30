@@ -12,6 +12,15 @@ spring:
     hibernate:
       ddl-auto: create-drop #change to validate in production mode
     show-sql: true
+  thymeleaf:
+    cache: false
+  resources: # Static resources
+    static-locations: file:src/main/resources/static/
+    cache:
+      period: 0
+  devtools:
+    livereload:
+      enabled: true
 
 server:
   port: ${PORT:3001}   # HTTP (Tomcat) port
@@ -23,5 +32,3 @@ logging:
     org.springframework.web: WARN
     org.hibernate: INFO
     com.dbhacademy.firefight: DEBUG
-
-  

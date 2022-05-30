@@ -3,6 +3,7 @@ package com.dbhacademy.firefight.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dbhacademy.firefight.model.entity.Agrupacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,12 @@ public class TestService {
 
     private final TemaService temaService;
 
+    private final AgrupacionService agrupacionService;
+
     @Autowired
-    public TestService(TemaService temaService) {
+    public TestService(TemaService temaService, AgrupacionService agrupacionService) {
         this.temaService = temaService;
+        this.agrupacionService = agrupacionService;
     }
 
     public List<Pregunta> generaPreguntas(TemasSeleccionados temasSeleccionados) {
@@ -44,5 +48,18 @@ public class TestService {
     public List<Pregunta> generaSimulacro(int numPreguntasTotales) {
         // 50 preguntas.... recorre todos los temas cogiendo una pregunta al azar
         return temaService.getTemasYPreguntasRandom(numPreguntasTotales);
+    }
+
+
+    public List<Tema> getTemas() {
+        return temaService.getTemas();
+    }
+
+    public List<Tema> getTemasAlphabetically() {
+        return temaService.getTemasAlphabetically();
+    }
+
+    public List<Agrupacion> getAgrupacionesAlphabetically() {
+        return agrupacionService.getAgrupacionesAlphabetically();
     }
 }

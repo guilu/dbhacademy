@@ -74,6 +74,7 @@ html {
 .bg-purple { background-color: var(--purple); }
 .bg-red { background-color: var(--red); }
 .bg-blue { background-color: var(--blue); }
+.bg-green {background-color: var(--green); }
 
 /** search page **/
 #btnRespuestas.active {
@@ -139,18 +140,19 @@ html {
 #menu-reloj {
   min-width: 120px;
   font-weight: lighter;
+  font-size: 1rem !important;
+  color: white;
 }
 
 #button-corregir-simulacro,#button-finalizar-simulacro{
-  position: fixed;
-  bottom: 45px;
-  right:30px;
+  z-index: 99;
 }
 
 .header {
   z-index: 32;
   padding: 16px;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: lighter;
   line-height: 1.5;
   color: black;
   background-color: #192531 !important;
@@ -189,7 +191,7 @@ html {
 
 /** esto está puesto a pelo para que quepan 6 bloques 100 / 6 = 16,6% **/
 .card-bloque {
-  width: 16%;
+  flex: 2 1 auto;
 }
 /** en el movil sm min-width:100% **/
 @media (max-width: 576px) {
@@ -224,7 +226,7 @@ html {
 }
 
 .card {
-  min-height: 510px;
+  /*min-height: 510px;*/
 }
 
 .card h1, .card h1, .card h1 {
@@ -248,22 +250,24 @@ html {
   padding:1.1rem !important;
 }
 .card-bloque .card-bloque-header {
-  padding-top:5px;
-  padding-left:5px;
+  padding: 15px 15px;
+  background-color: var(--purple);
+  color: white;
 }
 .card-bloque .card-bloque-header h6 {
-  font-size:0.9em;
+  font-size:1.2em;
 }
 .card-bloque .card-bloque-body {
   font-size:.75em;
+  line-height: 24px;
 }
 
 .card-bloque .card-bloque-body .form-check-input
 {
-  font-size: 10px;
+  font-size: 16px;
 }
 .card-bloque .card-bloque-body .form-check-label {
-  font-size:12px;
+  font-size:16px;
   color: #193652;
 }
 
@@ -283,4 +287,10 @@ html {
 }
 .one-question {
   margin-bottom: 15px;
+}
+
+.barra-progreso {
+  position: fixed;
+  top:82px;
+  width: 100%;
 }

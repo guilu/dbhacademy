@@ -21,4 +21,6 @@ public interface TemaJpaRepository extends PagingAndSortingRepository<Tema, Long
 	List<Tema> findTemasConPreguntas();
 
 	List<Tema> findByTextoContainingIgnoreCase(String cadena);
+
+	List<Tema> findAllByOrderByTextoAsc();
 }

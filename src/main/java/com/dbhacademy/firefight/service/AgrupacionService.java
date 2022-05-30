@@ -3,6 +3,8 @@ package com.dbhacademy.firefight.service;
 import java.util.Collections;
 import java.util.List;
 
+import com.dbhacademy.firefight.model.dto.NuevoTemaDTO;
+import com.dbhacademy.firefight.model.entity.Tema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,23 @@ public class AgrupacionService {
 
 	public List<Agrupacion> searchInAgrupacion(String cadena) {
 		return this.agrupacionJpaRepository.findByTextoContainingIgnoreCase(cadena);
+	}
+
+    public List<Agrupacion> getAgrupacionesAlphabetically() {
+		return this.agrupacionJpaRepository.findAllByOrderByTexto();
+    }
+
+
+	public Agrupacion getById(long id){
+		return this.agrupacionJpaRepository.findById(id).get();
+
+	}
+
+    public Agrupacion saveAgrupacion(Agrupacion nuevaAgrupacion) {
+		return this.agrupacionJpaRepository.save(nuevaAgrupacion);
+    }
+
+	public void deleteAgrupacion(Agrupacion agrupacion) {
+		this.agrupacionJpaRepository.delete(agrupacion);
 	}
 }

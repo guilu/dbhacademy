@@ -1,8 +1,6 @@
 package com.dbhacademy.firefight.controller;
 
-import com.dbhacademy.firefight.model.dto.ContadoresTest;
-import com.dbhacademy.firefight.model.dto.ResultadoBuscar;
-import com.dbhacademy.firefight.model.dto.TemasSeleccionados;
+import com.dbhacademy.firefight.model.dto.*;
 import com.dbhacademy.firefight.model.entity.*;
 import com.dbhacademy.firefight.service.*;
 import org.hibernate.Hibernate;
@@ -29,13 +27,16 @@ public class FrontEndController {
     private final ExamenService examenService;
     private final PreguntaService preguntaService;
 
+    private final TemaService temaService;
+
     @Autowired
-    public FrontEndController(AgrupacionService agrupacionService, TestService testService, SearchService searchService, ExamenService examenService, PreguntaService preguntaService) {
+    public FrontEndController(AgrupacionService agrupacionService, TestService testService, SearchService searchService, ExamenService examenService, PreguntaService preguntaService, TemaService temaService) {
         this.agrupacionService = agrupacionService;
         this.testService = testService;
         this.searchService = searchService;
         this.examenService = examenService;
         this.preguntaService = preguntaService;
+        this.temaService = temaService;
     }
 
     @RequestMapping("/")
@@ -52,7 +53,7 @@ public class FrontEndController {
         model.addAttribute("agrupaciones", this.agrupacionService.getAgrupaciones());
         model.addAttribute("temasSeleccionados", new TemasSeleccionados());
         model.addAttribute("examenes", this.examenService.getExamenes());
-        model.addAttribute("menu", "index");
+        model.addAttribute("menu", "temas");
         return "temas-seleccion";
     }
 
@@ -164,6 +165,12 @@ public class FrontEndController {
 
         List<Pregunta> preguntas = this.preguntaService.getPreguntasDeExamen(examen);
 
+        if (preguntas.size() == 0){
+            model.addAttribute("message","NO ENCUENTRO PREGUNTAS PARA ESTE EXAMEN. ");
+            model.addAttribute("examenes", this.examenService.getExamenes());
+            return "message";
+        }
+
         //En los examenes las preguntas no se desordenan pero si las respuestas
         preguntas = this.preguntaService.scrambleRespuestas(preguntas);
         LOG.info("Preguntas totales para el examen: {}", examen.isPresent() ? examen.get().getTexto() : "vacio");
@@ -237,4 +244,103 @@ public class FrontEndController {
         return "resultado-buscar";
 
     }
+
+
+    @GetMapping("/new-pregunta")
+    public String nuevaPreguntaForm(Model model){
+        model.addAttribute("menu", "new-pregunta");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        model.addAttribute("temas", testService.getTemasAlphabetically());
+        model.addAttribute("nuevaPregunta", new NuevaPreguntaDTO());
+        return "new-pregunta";
+
+    }
+
+    @PostMapping("/new-pregunta")
+    public String nuevaPreguntaSubmit(@ModelAttribute NuevaPreguntaDTO nuevaPregunta, Model model){
+        model.addAttribute("menu", "new-pregunta");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        model.addAttribute("nuevaPregunta", new NuevaPreguntaDTO());
+
+        Pregunta pregunta = temaService.saveNewPreguntaDTOenTema(nuevaPregunta);
+        model.addAttribute("pregunta",pregunta);
+        return "new-pregunta";
+    }
+
+
+
+    @GetMapping("/new-tema")
+    public String nuevoTemaForm(Model model){
+        model.addAttribute("menu", "new-tema");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        model.addAttribute("agrupaciones", testService.getAgrupacionesAlphabetically());
+        model.addAttribute("nuevoTema", new NuevoTemaDTO());
+        return "new-tema";
+    }
+
+
+    @PostMapping("/new-tema")
+    public String nuevoTemaSubmit(@ModelAttribute NuevoTemaDTO nuevoTema, Model model) {
+        model.addAttribute("menu", "new-tema");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        model.addAttribute("nuevoTema", new NuevoTemaDTO());
+
+        Tema temaSaved = temaService.saveNewTemaDTO(nuevoTema);
+
+        model.addAttribute("tema", temaSaved);
+        return "new-tema";
+
+    }
+
+
+    @GetMapping("/new-agrupacion")
+    public String nuevaAgrupacionForm(Model model){
+        model.addAttribute("menu", "new-agrupacion");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        model.addAttribute("nuevaAgrupacion", new Agrupacion());
+
+        return "new-agrupacion";
+    }
+
+
+    @PostMapping("/new-agrupacion")
+    public String nuevaAgrupacionSubmit(@ModelAttribute Agrupacion nuevaAgrupacion, Model model) {
+        model.addAttribute("menu", "new-agrupacion");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        model.addAttribute("nuevaAgrupacion", new Agrupacion());
+
+        Agrupacion agrupacionSaved = agrupacionService.saveAgrupacion(nuevaAgrupacion);
+
+        model.addAttribute("agrupacion", agrupacionSaved);
+        return "new-agrupacion";
+
+    }
+
+    @GetMapping("/delete-agrupacion")
+    public String deleteAgrupacionForm(Model model){
+        model.addAttribute("menu", "new-tema");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        model.addAttribute("agrupaciones", testService.getAgrupacionesAlphabetically());
+        model.addAttribute("agrupacion", new Agrupacion());
+        return "delete-agrupacion";
+    }
+
+    @PostMapping("/delete-agrupacion")
+    public String deleteAgrupacionSubmit(@ModelAttribute Agrupacion agrupacion, Model model){
+        model.addAttribute("menu", "new-tema");
+        model.addAttribute("examenes", this.examenService.getExamenes());
+
+        agrupacionService.deleteAgrupacion(agrupacion);
+        model.addAttribute("agrupaciones", testService.getAgrupacionesAlphabetically());
+
+        return "delete-agrupacion";
+    }
+
 }

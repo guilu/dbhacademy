@@ -1,11 +1,11 @@
-var Simulacro = (function () {
+const Simulacro = (function () {
 
     //modo estricto
     "use strict";
     //elementos del Test
 
-    var aciertos,errores,blancos;
-    var reloj,intervalo, end;
+    let aciertos,errores,blancos;
+    let reloj,intervalo, end, milisegundosTotales;
 
     return {
         setReloj: function(elReloj) {
@@ -16,37 +16,47 @@ var Simulacro = (function () {
         },
         cuentaAtras: function(elReloj, milisegundos) {
             end = new Date().getTime() + milisegundos;
+            milisegundosTotales = milisegundos;
             reloj = elReloj;
 
             intervalo = setInterval(this.showRemaining, 1000);
         },
         showRemaining: function(){
-            var now = new Date();
-            var distance = end - now;
+            const now = new Date();
+            const distance = end - now;
+
+            //comprobar si hay que resolver....
             if (distance < 0) {
-                this.resolver();
+                Simulacro.resolver();
+                return;
             }
-            var _second = 1000;
-            var _minute = _second * 60;
-            var _hour = _minute * 60;
-            var _day = _hour * 24;
+            const _second = 1000;
+            const _minute = _second * 60;
+            const _hour = _minute * 60;
+            const _day = _hour * 24;
 
             // Time calculations for days, hours, minutes and seconds
             //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             hours = hours < 10 ? "0" + hours : hours;
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
             reloj.text(hours + ":" + minutes + ":" + seconds );
+
+            let porcentaje = Math.floor((distance * 100 / milisegundosTotales));
+            //console.log("total:"+milisegundosTotales+ " distance:" + distance + " is porcentaje:" + porcentaje);
+
+            $('.progress-bar').css('width', porcentaje+'%').attr('aria-valuenow', porcentaje);
+
             $('#menu-reloj').show();
         },
         resolver: function() {
                 clearInterval(intervalo);
-                console.log('resolviendo');
+                //console.log('resolviendo');
                 //primero todos los radios disabled
                 $('input[type=radio]').prop('disabled',true);
                 $('.form-check').addClass('disabled');
@@ -92,7 +102,7 @@ var Simulacro = (function () {
                 });
 
 
-            var nota;
+            let nota;
             if( aciertos < (errores/3) ) {
                 nota = 0;
             } else {
@@ -100,14 +110,21 @@ var Simulacro = (function () {
             }
 
             //Porcentaje de acierto de lo contestado (se entiende)....
-            var porcentaje = parseFloat( (aciertos / (aciertos + errores) * 100)).toFixed(2);
-            if ((aciertos == 0) && (errores == 0)) {
+            let porcentaje = parseFloat( (aciertos / (aciertos + errores) * 100)).toFixed(2);
+            if ((aciertos === 0) && (errores === 0)) {
             	porcentaje = 0;
             }
 
 
-            var notaFinal = parseFloat(nota).toFixed(2);
+            const notaFinal = parseFloat(nota).toFixed(2);
             $('#notaFinal').text(notaFinal);
+
+            if(notaFinal > 5){
+                $('#notaFinal').addClass("bg-green");
+            } else {
+                $('#notaFinal').addClass("bg-red");
+            }
+
             $('#txtResultado').text(aciertos + ' aciertos ' + errores + ' errores. ' + blancos + ' en blanco.');
             $('#txtPorcentaje').text('Porcentaje de acierto: ' + porcentaje + '%');
             $('#porcentajeAciertos').css('width', porcentaje + '%');
