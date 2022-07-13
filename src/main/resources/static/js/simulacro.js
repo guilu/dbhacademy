@@ -103,11 +103,15 @@ const Simulacro = (function () {
 
 
             let nota;
+            /*
             if( aciertos < (errores/3) ) {
                 nota = 0;
             } else {
                 nota = ((aciertos - (errores/3)) * 10 )/ $('#numPreguntasTotales').val();
             }
+             */
+            nota = ((aciertos * 10 ) / $('#numPreguntasTotales').val()) -  (errores * 0.5)  - (blancos * 0.25)
+            if (nota < 0) nota = 0;
 
             //Porcentaje de acierto de lo contestado (se entiende)....
             let porcentaje = parseFloat( (aciertos / (aciertos + errores) * 100)).toFixed(2);

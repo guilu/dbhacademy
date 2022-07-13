@@ -29,4 +29,4 @@ logging:
     com.dbhacademy.firefight: DEBUG
 
 simulacro:
-  segundos-por-pregunta: 10
+  segundos-por-pregunta: 60
