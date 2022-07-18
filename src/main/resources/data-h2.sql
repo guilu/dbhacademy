@@ -83,12 +83,12 @@ INSERT INTO BDD_FIREFIGHT.TB05_EXAMEN VALUES
                                            (11,'Cons. Alicante 2021 - Bombero Libre'),
                                            (12,'Cons. Alicante 2021 - Bombero Estabilización');
 
-INSERT INTO BDD_FIREFIGHT.TB03_PREGUNTA(id,texto,tema_id,examen_id) VALUES (1,'¿Qué Artículo de la Constitución está dedicado a la irretroactividad de las disposiciones  desfavorables o restrictivas de derechos individuales?',1,NULL),
-(2,'Según el Artículo 1.2 de la Constitución Española, ¿De dónde emanan los poderes del Estado?',1,NULL),
-(3,'¿Cómo se denomina el Título Preliminar de la C.E?',1,NULL),
-(4,'¿Por qué no están constituidas las fuerzas armadas?',1,NULL),
-(5,'Las bases de la organización militar se regulará conforme a los principios previstos en:',1,NULL),
-(6,'Según la Constitución Española de 1978, las banderas y enseñas propias de las Comunidades Autónomas: (Comunidad de Madrid, 2014)',1,NULL),
+INSERT INTO BDD_FIREFIGHT.TB03_PREGUNTA(id,texto,tema_id,examen_id) VALUES (1,'¿Qué Artículo de la Constitución está dedicado a la irretroactividad de las disposiciones  desfavorables o restrictivas de derechos individuales?',1,1),
+(2,'Según el Artículo 1.2 de la Constitución Española, ¿De dónde emanan los poderes del Estado?',1,1),
+(3,'¿Cómo se denomina el Título Preliminar de la C.E?',1,1),
+(4,'¿Por qué no están constituidas las fuerzas armadas?',1,1),
+(5,'Las bases de la organización militar se regulará conforme a los principios previstos en:',1,1),
+(6,'Según la Constitución Española de 1978, las banderas y enseñas propias de las Comunidades Autónomas: (Comunidad de Madrid, 2014)',1,1 ),
 (7,'La solidaridad entre las autonomías de las nacionalidades  y  regiones  que integran  la  nación española es  un derecho  que:',1,NULL),
 (8,'Según el Artículo 1 de la Constitución Española,  la  forma  política del  Estado  español es: (Comunidad  de Madrid,  2014)',1,NULL),
 (9,'Según la Constitución;  ¿Que  se  fundamenta en  la  indisoluble unidad de  la nación  española?',1,NULL),
