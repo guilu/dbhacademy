@@ -104,14 +104,16 @@ const Simulacro = (function () {
 
             let nota,preguntasTotales;
             preguntasTotales = $('#numPreguntasTotales').val();
-            /* formula 1 error quita 3 bien, blancos no quitan */
-            //nota = ((aciertos - (errores/3)) * 10 )/ $('#numPreguntasTotales').val();
 
-            /* formula 1 error quita 0.5 y 1 blanco quita 0.25 */
+
+            /* formula 1 error quita 1/3 bien, blancos no quitan */
+            nota = ((aciertos - (errores/3)) * 10 ) / preguntasTotales;
+
+            /* formula 2 error quita 0.5 y blanco quita 0.25 */
             //nota = ((aciertos * 10 ) / preguntasTotales) -  (errores * 0.5)  - (blancos * 0.25)
 
             /* formula oficial */
-            nota = ((aciertos - (errores/2) - (blancos/4) ) * 10 ) / preguntasTotales;
+            //nota = ((aciertos - (errores/2) - (blancos/4) ) * 10 ) / preguntasTotales;
 
             if (nota < 0) nota = 0;
 
